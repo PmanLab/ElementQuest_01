@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerInputSystem",
     "maps": [
         {
             "name": "Player",
@@ -24,18 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Walk",
+                    "name": "Run",
                     "type": "Button",
-                    "id": "05817b4e-7a45-40cf-9e4c-cbc19c86e955",
+                    "id": "14ea373e-34da-4e77-b7e2-d24752671024",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Pause",
                     "type": "Button",
-                    "id": "14ea373e-34da-4e77-b7e2-d24752671024",
+                    "id": "48ab5247-0ecd-455b-aecb-ccd0fa434705",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -55,9 +55,20 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "fd848550-1823-42d9-aab1-2ab90446b1a6",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "A D",
                     "id": "633db2ad-4526-4015-a519-1f73a2b661e5",
-                    "path": "1DAxis",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -66,8 +77,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "784e046d-08cd-4eea-990f-e72edc17e2a8",
+                    "name": "Left",
+                    "id": "1e673fb7-0f55-4c35-973a-6fc68dbd60b8",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -77,8 +88,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "2b2c040b-7aab-4255-9564-302cf21b1c2c",
+                    "name": "Right",
+                    "id": "9d9fb3fd-e5eb-4df7-9b2c-09d235c261bd",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -100,6 +111,17 @@
                 },
                 {
                     "name": "",
+                    "id": "98ef1521-1bd6-49a6-85bb-afdf72f4c2c7",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "97cc7dc6-3a77-4bd0-85a1-0ede594532d3",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -111,23 +133,56 @@
                 },
                 {
                     "name": "",
-                    "id": "55246b6b-60ec-4e79-bea1-9d4c7138b8bc",
-                    "path": "",
+                    "id": "4d65afb2-63ae-4952-b025-9674cb35dd78",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Walk",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4d65afb2-63ae-4952-b025-9674cb35dd78",
-                    "path": "",
+                    "id": "bd276ade-1639-4f40-8320-8a657eb3eee5",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa007aaa-5325-48af-abd0-e16fa4c07a67",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15043883-97ae-47ff-b77b-8edc551cf70a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "314a292d-d357-4f1c-900a-25ec3d9a57cc",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
