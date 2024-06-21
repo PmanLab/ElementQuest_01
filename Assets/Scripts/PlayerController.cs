@@ -5,8 +5,10 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    //--- インスタンス ---
+    //--- 格納用 ---
     private PlayerInputSystem playerInputSystem;
+    
+    //--- インスタンス ---
     private GameManager gameManager;
 
     //--- 行動用 ---
@@ -21,9 +23,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     //--- 検知フラグ ---
-    bool isJump = false;
-    bool isRun = false;
-    bool isWalk = false;
+    public static bool isJump = false;
+    public static bool isRun = false;
+    public static bool isWalk = false;
 
     bool isGround = false;
     bool facingRight = false; // プレイヤーの向きを追跡するためのフラグ
