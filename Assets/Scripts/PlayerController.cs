@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     //--- シリアライズ変数 ---
     [SerializeField, Header("移動スピード")] public float walkSpeed = 5.0f;
     [SerializeField, Header("走行スピード")] public float runSpeed = 10.0f;
-    [SerializeField, Header("ジャンプ力")] public float jumpForce = 15.0f;
+    [SerializeField, Header("ジャンプ力")] public float jumpForce = 10.0f;
 
     //--- リジットボディ ---
     private Rigidbody2D rb;

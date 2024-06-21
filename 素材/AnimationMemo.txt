@@ -6,6 +6,10 @@ Player_Idol   (待機モーション     )：　６フレーム
 Player_Walk   (歩きモーション     )：　８フレーム
 Player_Run    (走りモーション     )：１２フレーム
 Player_Attack (攻撃モーション     )：１２フレーム
+└火
+└水
+└風
+└土
 Player_Jump   (ジャンプモーション )：　８フレーム
 
 
