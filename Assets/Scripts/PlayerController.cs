@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     bool isWalk = false;
 
     bool isGround = false;
+    bool facingRight = false; // プレイヤーの向きを追跡するためのフラグ
 
     public static bool isPaused = false;
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         playerInputSystem = new PlayerInputSystem();        // インスタンス情報取得
         playerInputSystem.Enable();                         // 入力受付開始
         rb = GetComponent<Rigidbody2D>();                   // リジットボディを取得
+        Flip();                                             // 初期状態：右向き
     }
 
     //=== 更新処理 ===
@@ -103,6 +105,9 @@ public class PlayerController : MonoBehaviour
             gameManager.SetGameState(GameManager.eGameState.Playing);
             Debug.Log("ポーズ画面を閉じました、ゲームに戻ります。");
         }
+
+        // プレイヤーの向きを更新
+        UpdateFacingDirection(inputAxis.x);
     }
 
     //=== 関数 ===
@@ -129,6 +134,28 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         isGround = false; // ジャンプしたので地面にいないとフラグを立てる
+    }
+
+    // プレイヤーの向きを更新するメソッド
+    void UpdateFacingDirection(float horizontalInput)
+    {
+        if (horizontalInput < 0 && facingRight)
+        {
+            Flip();
+        }
+        else if (horizontalInput > 0 && !facingRight)
+        {
+            Flip();
+        }
+    }
+
+    // プレイヤーの向きを反転するメソッド
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 
     //=== 衝突判定 処理 ===
