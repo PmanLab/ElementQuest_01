@@ -133,6 +133,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9434034a-e3ff-4a5e-97e1-e551b4d9780c",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4d65afb2-63ae-4952-b025-9674cb35dd78",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
