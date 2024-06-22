@@ -33,7 +33,8 @@ public class CameraController : MonoBehaviour
         MoveCamera();
     }
 
-    //=== カメラ追従処理 ===
+    //=== 自作メソッド ===
+    //--- カメラ追従処理 ---
     void MoveCamera()
     {
         // カメラの位置をプレイヤーのX座標に追従させる（Y軸とZ軸はそのまま）

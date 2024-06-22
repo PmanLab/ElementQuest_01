@@ -5,19 +5,51 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //--- ゲームの状態を管理する列挙型 ---
+    //=== 列挙型定義 ===
+    //--- ゲームの状態を管理する---
     public enum eGameState
     {
-        Playing,
+        Playing = 0,
         Paused,
-        GameOver
+        GameOver,
+        MAX_GAMESTATE,
+    }
+
+    //--- プレイヤーの魔法属性を管理する---
+    public enum ePlayerAttributeState
+    {
+        Fire = 0,       // 火 属性
+        Water,          // 水 属性
+        Wind,           // 風 属性
+        Earth,          // 土 属性
+        MAX_ATTRIBUTE,  // 最大属性数
+    }
+
+    //--- 攻撃方法を管理する ---
+    public enum ePlayerAttackMethod
+    {
+        Physics = 0,            // 物理 攻撃
+        Magic,                  // 魔法 攻撃
+        MAX_ATTACKMETHOD,       // 最大攻撃方法
+    }
+
+    //--- 攻撃段階()を管理する ---
+    public enum ePlayerAttackStageState
+    {
+        Beginner = 0,           // 初級
+        Intermediate,           // 中級
+        Advanced,               // 上級
+        MAX_ATTACKSTAGE,        // 最大攻撃段階
     }
 
     //--- シングルトンインスタンス ---
     public static GameManager Instance { get; set; }
 
-    //--- ゲームの状態とプレイヤーデータ ---
-    public eGameState CurrentState { get; set; }
+    //--- ゲームや色々の状態とプレイヤーデータ ---
+    public eGameState CurrentGameState { get; set; }
+    public ePlayerAttributeState CurrentPlayerAttributeState { get; set; }
+    public ePlayerAttackMethod CurrentPlayerAttackMethod { get; set; }
+    public ePlayerAttackStageState CurrentPlayerAttackStage { get; set; }
     public int PlayerScore { get; set; }
     public int PlayerLives { get; set; }
 
@@ -45,10 +77,10 @@ public class GameManager : MonoBehaviour
         InitializeGame();
     }
 
-    //--- ゲーム状態を設定するメソッド ---
+    //=== ゲーム状態を設定するメソッド ===
     public void SetGameState(eGameState newState)
     {
-        CurrentState = newState;
+        CurrentGameState = newState;
         switch (newState)
         {
             case eGameState.Playing:
@@ -63,31 +95,54 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-
-    // ゲームの初期化
-    public void InitializeGame()
+    //=== プレイヤーの属性を設定するメソッド ===
+    public void SetPlayerAttributeState(ePlayerAttributeState newState)
     {
-        PlayerScore = 0;
-        PlayerLives = 3; // 初期ライフを設定
-        SetGameState(eGameState.Playing);
-        // 他の初期化処理をここに追加
+        CurrentPlayerAttributeState = newState;
+
     }
 
-    // ゲームをリセットするメソッド
+    //=== 攻撃方法を設定するメソッド ===
+    public void SetPlayerAttackMethodState(ePlayerAttackMethod newState)
+    {
+        CurrentPlayerAttackMethod = newState;
+    }
+
+    //=== 攻撃段階を設定するメソッド ===
+    public void SetPlayerAttackStageState(ePlayerAttackStageState newState)
+    {
+        CurrentPlayerAttackStage = newState;
+    }
+
+    //=== ゲームの初期化 ===
+    public void InitializeGame()
+    {
+        //--- 初期情報 初期化 ---
+        PlayerScore = 0;
+        PlayerLives = 3;
+
+        //--- 状態 初期化 ---
+        SetGameState(eGameState.Playing);                               // ゲーム状態
+        SetPlayerAttackMethodState(ePlayerAttackMethod.Magic);          // プレイヤー 攻撃 方法
+        SetPlayerAttackStageState(ePlayerAttackStageState.Beginner);    // プレイヤー 攻撃 段階
+        SetPlayerAttributeState(ePlayerAttributeState.Fire);          // プレイヤー 攻撃 属性
+    }
+
+    //=== ゲームをリセットするメソッド ===
     public void ResetGame()
     {
         InitializeGame();
         ReloadCurrentScene();
     }
 
-    // スコアを追加するメソッド
+    //=== スコアを追加するメソッド ===
     public void AddScore(int amount)
     {
+        // スコア更理処理
         PlayerScore += amount;
-        // スコア更新に伴う処理をここに追加
     }
 
-    // ライフを減少させるメソッド
+    //=== ライフを減少させるメソッド ===
     public void LoseLife()
     {
         PlayerLives--;
@@ -97,13 +152,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // シーンをロードするメソッド
+    //=== シーンをロードするメソッド ===
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    // 現在のシーンをリロードするメソッド
+    //=== 現在のシーンをリロードするメソッド ===
     public void ReloadCurrentScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

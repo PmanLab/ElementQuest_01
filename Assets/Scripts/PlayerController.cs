@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputAxis;
 
     //--- シリアライズ変数 ---
-    [SerializeField, Header("移動スピード")] public float walkSpeed = 5.0f;
-    [SerializeField, Header("走行スピード")] public float runSpeed = 10.0f;
-    [SerializeField, Header("ジャンプ力")] public float jumpForce = 10.0f;
+    [SerializeField, Header("移動スピード")] public float fWalkSpeed = 5.0f;
+    [SerializeField, Header("走行スピード")] public float fRunSpeed = 10.0f;
+    [SerializeField, Header("ジャンプ力")] public float fJumpForce = 10.0f;
 
     //--- リジットボディ ---
     private Rigidbody2D rb;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public static bool isWalk = false;
 
     bool isGround = false;
-    bool facingRight = false; // プレイヤーの向きを追跡するためのフラグ
+    bool isFacingRight = false; // プレイヤーの向きを追跡するためのフラグ
 
     public static bool isPaused = false;
 
@@ -38,61 +38,21 @@ public class PlayerController : MonoBehaviour
         playerInputSystem = new PlayerInputSystem();        // インスタンス情報取得
         playerInputSystem.Enable();                         // 入力受付開始
         rb = GetComponent<Rigidbody2D>();                   // リジットボディを取得
+        gameManager = GameManager.Instance;                 // GameManagerを取得
         Flip();                                             // 初期状態：右向き
+        
     }
 
     //=== 更新処理 ===
     void Update()
     {
+
+
         inputAxis = playerInputSystem.Player.Move.ReadValue<Vector2>();
 
         // リセット状態
         isRun = false;
         isWalk = false;
-
-        //--- 左右 移動(走り移動) ---
-        if (inputAxis.x < 0 && playerInputSystem.Player.Run.IsPressed())
-        {
-            isRun = true;
-            MoveLeft(runSpeed);
-            Debug.Log("左 ダッシュ移動");
-        }
-
-        else if (inputAxis.x < 0)
-        {
-            isWalk = true;
-            MoveLeft(walkSpeed);
-            Debug.Log("左 移動");
-
-        }
-
-        else if (inputAxis.x > 0 && playerInputSystem.Player.Run.IsPressed())
-        {
-            isRun = true;
-            MoveRight(runSpeed);
-            Debug.Log("右 ダッシュ移動");
-
-        }
-
-        else if (inputAxis.x > 0)
-        {
-            isWalk = true;
-            MoveRight(walkSpeed);
-            Debug.Log("右 移動");
-        }
-        else
-        {
-            // 入力がない場合、速度をゼロにする
-            StopMovement();
-        }
-
-        //--- ジャンプ ---
-        if (playerInputSystem.Player.Jump.triggered && isGround)
-        {
-            isJump = true;
-            Jump();
-            Debug.Log("ジャンプしました。");
-        }
 
         //--- ポーズ画面 ---
         if (playerInputSystem.Player.Pause.triggered && !isPaused)
@@ -108,11 +68,59 @@ public class PlayerController : MonoBehaviour
             Debug.Log("ポーズ画面を閉じました、ゲームに戻ります。");
         }
 
-        // プレイヤーの向きを更新
-        UpdateFacingDirection(inputAxis.x);
+        //=== 非ポーズ画面時 処理 ===
+        if (!isPaused)
+        {
+            //--- 左右 移動(走り移動) ---
+            if (inputAxis.x < 0 && playerInputSystem.Player.Run.IsPressed())
+            {
+                isRun = true;
+                MoveLeft(fRunSpeed);
+                //Debug.Log("左 ダッシュ移動");
+            }
+
+            else if (inputAxis.x < 0)
+            {
+                isWalk = true;
+                MoveLeft(fWalkSpeed);
+                //Debug.Log("左 移動");
+
+            }
+
+            else if (inputAxis.x > 0 && playerInputSystem.Player.Run.IsPressed())
+            {
+                isRun = true;
+                MoveRight(fRunSpeed);
+                //Debug.Log("右 ダッシュ移動");
+
+            }
+
+            else if (inputAxis.x > 0)
+            {
+                isWalk = true;
+                MoveRight(fWalkSpeed);
+                //Debug.Log("右 移動");
+            }
+            else
+            {
+                // 入力がない場合、速度をゼロにする
+                StopMovement();
+            }
+
+            //--- ジャンプ ---
+            if (playerInputSystem.Player.Jump.triggered && isGround)
+            {
+                isJump = true;
+                Jump();
+                //Debug.Log("ジャンプしました。");
+            }
+
+            // プレイヤーの向きを更新
+            UpdateFacingDirection(inputAxis.x);
+        }
     }
 
-    //=== 関数 ===
+    //=== 自作メソッド ===
     //--- 左移動 処理 ---
     void MoveLeft(float speed)
     {
@@ -134,18 +142,18 @@ public class PlayerController : MonoBehaviour
     //--- ジャンプ 処理 ---
     void Jump()
     {
-        rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(0, fJumpForce), ForceMode2D.Impulse);
         isGround = false; // ジャンプしたので地面にいないとフラグを立てる
     }
 
     // プレイヤーの向きを更新するメソッド
     void UpdateFacingDirection(float horizontalInput)
     {
-        if (horizontalInput < 0 && facingRight)
+        if (horizontalInput < 0 && isFacingRight)
         {
             Flip();
         }
-        else if (horizontalInput > 0 && !facingRight)
+        else if (horizontalInput > 0 && !isFacingRight)
         {
             Flip();
         }
@@ -154,7 +162,7 @@ public class PlayerController : MonoBehaviour
     // プレイヤーの向きを反転するメソッド
     void Flip()
     {
-        facingRight = !facingRight;
+        isFacingRight = !isFacingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
@@ -170,7 +178,7 @@ public class PlayerController : MonoBehaviour
         {
             isJump = false;
             isGround = true;
-            Debug.Log("地面に接地");
+            //Debug.Log("地面に接地");
         }
     }
 }

@@ -62,6 +62,33 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""9520c12b-435e-4e21-a020-b3de460a72f4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangAttribute"",
+                    ""type"": ""Button"",
+                    ""id"": ""28ebdecb-96ed-442d-8e0c-898f3db9b49e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeAttackMethod"",
+                    ""type"": ""Button"",
+                    ""id"": ""544ccb0a-77cc-4ea1-aedc-a30eefe0f9dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -218,6 +245,72 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""72809661-106e-484f-b1fd-c5863f8b2b50"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e06d4b6-850b-45ed-964f-dbedbf5fa2e7"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c2a47690-8027-4926-bff6-d11f78957e00"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangAttribute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c19f354-74cf-4c96-91fd-292c73f47d3a"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangAttribute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""338083a5-5f9a-4b31-8287-552fa09c4323"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeAttackMethod"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6cd07e17-c4a9-4c0a-965c-b46cf5068fd5"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeAttackMethod"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -230,6 +323,9 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+        m_Player_ChangAttribute = m_Player.FindAction("ChangAttribute", throwIfNotFound: true);
+        m_Player_ChangeAttackMethod = m_Player.FindAction("ChangeAttackMethod", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +391,9 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_Attack;
+    private readonly InputAction m_Player_ChangAttribute;
+    private readonly InputAction m_Player_ChangeAttackMethod;
     public struct PlayerActions
     {
         private @PlayerInputSystem m_Wrapper;
@@ -303,6 +402,9 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Run => m_Wrapper.m_Player_Run;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @Attack => m_Wrapper.m_Player_Attack;
+        public InputAction @ChangAttribute => m_Wrapper.m_Player_ChangAttribute;
+        public InputAction @ChangeAttackMethod => m_Wrapper.m_Player_ChangeAttackMethod;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -324,6 +426,15 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Attack.started += instance.OnAttack;
+            @Attack.performed += instance.OnAttack;
+            @Attack.canceled += instance.OnAttack;
+            @ChangAttribute.started += instance.OnChangAttribute;
+            @ChangAttribute.performed += instance.OnChangAttribute;
+            @ChangAttribute.canceled += instance.OnChangAttribute;
+            @ChangeAttackMethod.started += instance.OnChangeAttackMethod;
+            @ChangeAttackMethod.performed += instance.OnChangeAttackMethod;
+            @ChangeAttackMethod.canceled += instance.OnChangeAttackMethod;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -340,6 +451,15 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Attack.started -= instance.OnAttack;
+            @Attack.performed -= instance.OnAttack;
+            @Attack.canceled -= instance.OnAttack;
+            @ChangAttribute.started -= instance.OnChangAttribute;
+            @ChangAttribute.performed -= instance.OnChangAttribute;
+            @ChangAttribute.canceled -= instance.OnChangAttribute;
+            @ChangeAttackMethod.started -= instance.OnChangeAttackMethod;
+            @ChangeAttackMethod.performed -= instance.OnChangeAttackMethod;
+            @ChangeAttackMethod.canceled -= instance.OnChangeAttackMethod;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -363,5 +483,8 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnAttack(InputAction.CallbackContext context);
+        void OnChangAttribute(InputAction.CallbackContext context);
+        void OnChangeAttackMethod(InputAction.CallbackContext context);
     }
 }
