@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     private GameManager gameManager;
 
     // ƒWƒƒƒ“ƒv’†‚©‚Ç‚¤‚©‚ğ”»’è‚·‚éƒtƒ‰ƒO
-    private bool hasJumped = false;
+    public static bool isJump = false;
 
     //=== ‰Šú‰» ˆ— ===
     void Start()
@@ -27,68 +28,148 @@ public class PlayerAnimation : MonoBehaviour
         {
             //--- •¨— UŒ‚ó‘Ô ---
             case GameManager.ePlayerAttackMethod.Physics:
-                Anime.SetBool("Idol_Normal", true);
-
-                // •¨—UŒ‚‚Í‚·‚×‚Ä‚Ì‘®«ƒAƒjƒ[ƒVƒ‡ƒ“‚ğfalse‚Éİ’è
-                Anime.SetBool("Idol_Fire", false);
-                Anime.SetBool("Idol_Water", false);
-                Anime.SetBool("Idol_Wind", false);
-                Anime.SetBool("Idol_Earth", false);
-                break;
-
-            //--- –‚–@ UŒ‚ó‘Ô ---
-            case GameManager.ePlayerAttackMethod.Magic:
-                switch (gameManager.CurrentPlayerAttributeState)
+                if (!Anime.GetBool("Idol_Normal"))
                 {
-                    // ‰Î ‘®«
-                    case GameManager.ePlayerAttributeState.Fire:
-                        Anime.SetBool("Idol_Normal", false);
-                        Anime.SetBool("Idol_Earth", false);
-                        Anime.SetBool("Idol_Fire", true);
-                        Anime.SetBool("Idol_Water", false);
-                        Anime.SetBool("Idol_Wind", false);
-                        break;
-                    // … ‘®«
-                    case GameManager.ePlayerAttributeState.Water:
-                        Anime.SetBool("Idol_Normal", false);
-                        Anime.SetBool("Idol_Fire", false);
-                        Anime.SetBool("Idol_Water", true);
-                        Anime.SetBool("Idol_Wind", false);
-                        Anime.SetBool("Idol_Earth", false);
-                        break;
-                    // •— ‘®«
-                    case GameManager.ePlayerAttributeState.Wind:
-                        Anime.SetBool("Idol_Normal", false);
-                        Anime.SetBool("Idol_Water", false);
-                        Anime.SetBool("Idol_Wind", true);
-                        Anime.SetBool("Idol_Fire", false);
-                        Anime.SetBool("Idol_Earth", false);
-                        break;
-                    // “y ‘®«
-                    case GameManager.ePlayerAttributeState.Earth:
-                        Anime.SetBool("Idol_Normal", false);
-                        Anime.SetBool("Idol_Wind", false);
-                        Anime.SetBool("Idol_Earth", true);
-                        Anime.SetBool("Idol_Fire", false);
-                        Anime.SetBool("Idol_Water", false);
-                        break;
-                    default:
-                        break;
+                    Anime.SetBool("Idol_Fire", false);
+                    Anime.SetBool("Idol_Water", false);
+                    Anime.SetBool("Idol_Wind", false);
+                    Anime.SetBool("Idol_Earth", false);
+                    Anime.SetBool("Idol_Normal", true);
                 }
 
                 break;
+
+
+            //--- –‚–@ UŒ‚ó‘Ô ---
+            case GameManager.ePlayerAttackMethod.Magic:
+                if (Anime.GetBool("Idol_Normal"))
+                { Anime.SetBool("Idol_Normal", false); }
+                else
+                {
+                    switch (gameManager.CurrentPlayerAttributeState)
+                    {
+                        // ‰Î ‘®«
+                        case GameManager.ePlayerAttributeState.Fire:
+                            Anime.SetBool("Idol_Earth", false);
+                            Anime.SetBool("Idol_Fire", true);
+                            break;
+                        // … ‘®«
+                        case GameManager.ePlayerAttributeState.Water:
+                            Anime.SetBool("Idol_Fire", false);
+                            Anime.SetBool("Idol_Water", true);
+                            break;
+                        // •— ‘®«
+                        case GameManager.ePlayerAttributeState.Wind:
+                            Anime.SetBool("Idol_Water", false);
+                            Anime.SetBool("Idol_Wind", true);
+                            break;
+                        // “y ‘®«
+                        case GameManager.ePlayerAttributeState.Earth:
+                            Anime.SetBool("Idol_Wind", false);
+                            Anime.SetBool("Idol_Earth", true);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                break;
+
         }
 
         //--- ƒWƒƒƒ“ƒv ---
-        if (PlayerController.isJump == true && !hasJumped)
+        if (PlayerController.isJump == true && !isJump)
         {
-            Anime.SetBool("Jump", true);
-            hasJumped = true;
+            switch (gameManager.CurrentPlayerAttackMethod)
+            {
+                //--- •¨— UŒ‚ó‘Ô ---
+                case GameManager.ePlayerAttackMethod.Physics:
+                    // •¨—UŒ‚‚Í‚·‚×‚Ä‚Ì‘®«ƒAƒjƒ[ƒVƒ‡ƒ“‚ğfalse‚Éİ’è
+                    Anime.SetBool("Jump_Normal", true);
+                    isJump = true;
+
+                    break;
+
+                //--- –‚–@ UŒ‚ó‘Ô ---
+                case GameManager.ePlayerAttackMethod.Magic:
+                    switch (gameManager.CurrentPlayerAttributeState)
+                    {
+                        // ‰Î ‘®«
+                        case GameManager.ePlayerAttributeState.Fire:
+                            Anime.SetBool("Jump_Fire", true);
+                            isJump = true;
+
+                            break;
+                        // … ‘®«
+                        case GameManager.ePlayerAttributeState.Water:
+                            Anime.SetBool("Jump_Water", true);
+                            isJump = true;
+
+                            break;
+                        // •— ‘®«
+                        case GameManager.ePlayerAttributeState.Wind:
+                            Anime.SetBool("Jump_Wind", true);
+                            isJump = true;
+
+                            break;
+                        // “y ‘®«
+                        case GameManager.ePlayerAttributeState.Earth:
+                            Anime.SetBool("Jump_Earth", true);
+                            isJump = true;
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+            }
         }
-        else if (hasJumped && !PlayerController.isJump)
+        else if (isJump && !PlayerController.isJump)
         {
-            Anime.SetBool("Jump", false);
-            hasJumped = false;
+            switch (gameManager.CurrentPlayerAttackMethod)
+            {
+                //--- •¨— UŒ‚ó‘Ô ---
+                case GameManager.ePlayerAttackMethod.Physics:
+                    // •¨—UŒ‚‚Í‚·‚×‚Ä‚Ì‘®«ƒAƒjƒ[ƒVƒ‡ƒ“‚ğfalse‚Éİ’è
+                    Anime.SetBool("Jump_Normal", false);
+                    isJump = false;
+
+                    break;
+
+                //--- –‚–@ UŒ‚ó‘Ô ---
+                case GameManager.ePlayerAttackMethod.Magic:
+                    switch (gameManager.CurrentPlayerAttributeState)
+                    {
+                        // ‰Î ‘®«
+                        case GameManager.ePlayerAttributeState.Fire:
+                            Anime.SetBool("Jump_Fire", false);
+                            isJump = false;
+
+                            break;
+                        // … ‘®«
+                        case GameManager.ePlayerAttributeState.Water:
+                            Anime.SetBool("Jump_Water", false);
+                            isJump = false;
+
+                            break;
+                        // •— ‘®«
+                        case GameManager.ePlayerAttributeState.Wind:
+                            Anime.SetBool("Jump_Wind", false);
+                            isJump = false;
+
+                            break;
+                        // “y ‘®«
+                        case GameManager.ePlayerAttributeState.Earth:
+                            Anime.SetBool("Jump_Earth", false);
+                            isJump = false;
+
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+            }
         }
     }
 }

@@ -45,7 +45,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-
         inputAxis = playerInputSystem.Player.Move.ReadValue<Vector2>();
 
         // ƒŠƒZƒbƒgó‘Ô

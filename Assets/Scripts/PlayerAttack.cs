@@ -12,7 +12,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField, Header("基本 攻撃力")] public float fAttackLevel = 5.0f;
 
     //--- 検知用フラグ ---
-    
 
     //=== 初期化処理 ===
     void Start()
@@ -25,13 +24,18 @@ public class PlayerAttack : MonoBehaviour
     //=== 更新処理 ===
     void Update()
     {
-        //=== 非ポーズ画面時 処理 ===
-        if (!PlayerController.isPaused)
+        //=== 非ポーズ画面時 & 非ジャンプ時 処理 ===
+        if (!PlayerController.isPaused && !PlayerAnimation.isJump)
         {
             //--- 攻撃方法変更 ---
             ChangeAttack();
+
             //--- 属性変更 ---
-            ChangeChangAttribute();
+            if (gameManager.CurrentPlayerAttackMethod ==
+                GameManager.ePlayerAttackMethod.Magic)
+            { ChangeChangAttribute(); }
+
+
             //--- 攻撃処理 ---
             Attack();
 
@@ -67,7 +71,7 @@ public class PlayerAttack : MonoBehaviour
 
         }
     }
-    
+
     //--- 攻撃属性変更 ---
     void ChangeChangAttribute()
     {
@@ -77,6 +81,7 @@ public class PlayerAttack : MonoBehaviour
             //--- 変更処理 ---
             switch (gameManager.CurrentPlayerAttributeState)
             {
+
                 // 火 属性
                 case GameManager.ePlayerAttributeState.Fire:
                     gameManager.SetPlayerAttributeState(
