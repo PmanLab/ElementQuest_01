@@ -5,10 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
-    //--- 格納用 ---
+    //--- 格納用インスタンス ---
     private PlayerInputSystem playerInputSystem;
-    
-    //--- インスタンス ---
     private GameManager gameManager;
 
     //--- 行動用 ---

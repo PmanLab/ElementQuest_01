@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    // プレイヤーオブジェクトを格納するための変数
-    GameObject playerObj;
 
-    // プレイヤーのPlayerControllerコンポーネントを格納するための変数
+    //--- 格納用インスタンス ---
     PlayerController player;
 
-    // プレイヤーオブジェクトのTransformを格納するための変数
-    Transform playerTransform;
+    //--- 変数宣言 ---
+    GameObject playerObj;           // PlayerObject格納用
+    Transform playerTransform;      // PlayerObjectのTransform格納用
+
 
     //=== 初期化処理 ===
     void Start()

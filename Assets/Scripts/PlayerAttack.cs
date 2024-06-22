@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    //--- 格納用 ---
+    //--- 格納用インスタンス ---
     private PlayerInputSystem playerInputSystem;
-
-    //--- インスタンス ---
     private GameManager gameManager;
 
     //--- シリアライズ変数 ---
