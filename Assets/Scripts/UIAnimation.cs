@@ -17,30 +17,62 @@ public class UIAnimation : MonoBehaviour
 
     void Update()
     {
-        //=== 属性変更 アニメーション ===
-        switch (gameManager.CurrentPlayerAttributeState)
+        //=== UIアニメーション ===
+        if (Anime != null)
         {
-            case GameManager.ePlayerAttributeState.Fire:
-                Anime.SetBool("Earth", false);
-                Anime.SetBool("Fire", true);
+            //=== 攻撃状態 UIアニメーション 切り替え ===
+            switch (gameManager.CurrentPlayerAttackMethod)
+            {
+                //--- 物理攻撃 アニメーション ---
+                case GameManager.ePlayerAttackMethod.Physics:
+                    if (!Anime.GetBool("Fist"))
+                    {
+                        Anime.SetBool("Fire", false);
+                        Anime.SetBool("Water", false);
+                        Anime.SetBool("Wind", false);
+                        Anime.SetBool("Earth", false);
+                        Anime.SetBool("Fist", true);
+                    }
 
-                break;
-            case GameManager.ePlayerAttributeState.Water:
-                Anime.SetBool("Fire", false);
-                Anime.SetBool("Water", true);
+                    break;
+                //=== 魔法攻撃 アニメーション ===
+                case GameManager.ePlayerAttackMethod.Magic:
+                    if(Anime.GetBool("Fist"))
+                    { Anime.SetBool("Fist", false); }
 
-                break;
-            case GameManager.ePlayerAttributeState.Wind:
-                Anime.SetBool("Water", false);
-                Anime.SetBool("Wind", true);
+                    //--- 属性変更 アニメーション ---
+                    switch (gameManager.CurrentPlayerAttributeState)
+                    {
+                        case GameManager.ePlayerAttributeState.Fire:
+                            Anime.SetBool("Earth", false);
+                            Anime.SetBool("Fire", true);
 
-                break;
-            case GameManager.ePlayerAttributeState.Earth:
-                Anime.SetBool("Wind", false);
-                Anime.SetBool("Earth", true);
+                            break;
+                        case GameManager.ePlayerAttributeState.Water:
+                            Anime.SetBool("Fire", false);
+                            Anime.SetBool("Water", true);
 
-                break;
+                            break;
+                        case GameManager.ePlayerAttributeState.Wind:
+                            Anime.SetBool("Water", false);
+                            Anime.SetBool("Wind", true);
+
+                            break;
+                        case GameManager.ePlayerAttributeState.Earth:
+                            Anime.SetBool("Wind", false);
+                            Anime.SetBool("Earth", true);
+
+                            break;
+                    }
+                    break;
+            }
         }
+        else
+        {
+            Debug.Log("UIAnimation：Animetor情報がありません");
+        }
+
+
 
     }
 }
