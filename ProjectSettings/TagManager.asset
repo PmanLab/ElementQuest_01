@@ -7,6 +7,18 @@ TagManager:
   - Ground
   - Scaffold
   - UI
+  - Fire_Beginner
+  - Fire_Intermediate
+  - Fire_Advanced
+  - Water_Beginner
+  - Water_Intermediate
+  - Water_Advanced
+  - Wind_Beginner
+  - Wind_Intermediate
+  - Wind_Advanced
+  - Earth_Beginner
+  - Earth_Intermediate
+  - Earth_Advanced
   layers:
   - Default
   - TransparentFX
@@ -52,6 +64,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2546106109
+    locked: 0
+  - name: Magic
+    uniqueID: 128604205
     locked: 0
   - name: UI
     uniqueID: 822132237
