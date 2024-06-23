@@ -9,8 +9,8 @@ public class PlayerAnimation : MonoBehaviour
     private Animator Anime;
     private GameManager gameManager;
 
-    // ジャンプ中かどうかを判定するフラグ
-    public static bool isJump = false;
+    //--- 検知用フラグ ---
+    public static bool isJump = false;              // ジャンプアニメーション中か判定するフラグ
 
     //=== 初期化 処理 ===
     void Start()
@@ -188,7 +188,7 @@ public class PlayerAnimation : MonoBehaviour
         Anime.SetBool("Attack_Physics", true);
     }
 
-    //--- 物理 攻撃アニメーションをオンにする関数
+    //--- 魔法 攻撃アニメーションをオンにする関数
     public void PlayerMagicAttackAnimation()
     {
         switch (gameManager.CurrentPlayerAttributeState)
@@ -221,10 +221,17 @@ public class PlayerAnimation : MonoBehaviour
     //--- 攻撃アニメーションをオフにする関数 ---
     public void PlayerAttackAnimationEnd()
     {
-        Anime.SetBool("Attack_Physics", false);
-        Anime.SetBool("Attack_Magic_Fire", false);
-        Anime.SetBool("Attack_Magic_Water", false);
-        Anime.SetBool("Attack_Magic_Wind", false);
-        Anime.SetBool("Attack_Magic_Earth", false);
+        if (Anime.GetBool("Attack_Physics") ||
+            Anime.GetBool("Attack_Magic_Fire") ||
+            Anime.GetBool("Attack_Magic_Water") ||
+            Anime.GetBool("Attack_Magic_Wind") ||
+            Anime.GetBool("Attack_Magic_Earth"))
+        {
+            Anime.SetBool("Attack_Physics", false);
+            Anime.SetBool("Attack_Magic_Fire", false);
+            Anime.SetBool("Attack_Magic_Water", false);
+            Anime.SetBool("Attack_Magic_Wind", false);
+            Anime.SetBool("Attack_Magic_Earth", false);
+        }
     }
 }
