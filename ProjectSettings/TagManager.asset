@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Scaffold
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Game
+    uniqueID: 1758876677
+    locked: 0
+  - name: UI
+    uniqueID: 822132237
     locked: 0

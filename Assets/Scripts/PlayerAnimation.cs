@@ -16,7 +16,7 @@ public class PlayerAnimation : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;         // GameManager‚ğæ“¾
-        Anime = GetComponent<Animator>(); // Animatorî•ñ‚ğŠi”[
+        Anime = GetComponent<Animator>();           // Animatorî•ñ‚ğŠi”[
     }
 
     //=== XV ˆ— ===
