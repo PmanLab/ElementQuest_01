@@ -7,11 +7,14 @@ public class PlayerAttack : MonoBehaviour
     //--- 格納用インスタンス ---
     private PlayerInputSystem playerInputSystem;
     private GameManager gameManager;
+    private PlayerAnimation playerAnimation;
 
     //--- シリアライズ変数 ---
     [SerializeField, Header("基本 攻撃力")] public float fAttackLevel = 5.0f;
 
     //--- 検知用フラグ ---
+    public static bool isAttack = false;    // 攻撃検知用
+
 
     //=== 初期化処理 ===
     void Start()
@@ -19,22 +22,28 @@ public class PlayerAttack : MonoBehaviour
         playerInputSystem = new PlayerInputSystem();        // インスタンス情報取得
         playerInputSystem.Enable();                         // 入力受付開始
         gameManager = GameManager.Instance;                 // GameManagerを取得
+        playerAnimation = GetComponent<PlayerAnimation>();
+
     }
 
     //=== 更新処理 ===
     void Update()
     {
         //=== 非ポーズ画面時 & 非ジャンプ時 処理 ===
-        if (!PlayerController.isPaused && !PlayerAnimation.isJump)
+        //if (!PlayerController.isPaused && !PlayerAnimation.isJump)
+        if (!PlayerController.isPaused)
         {
-            //--- 攻撃方法変更 ---
-            ChangeAttack();
+            if (!PlayerAnimation.isJump)
+            {
+                //--- 攻撃方法変更 ---
+                ChangeAttack();
 
-            //--- 属性変更 ---
-            if (gameManager.CurrentPlayerAttackMethod ==
-                GameManager.ePlayerAttackMethod.Magic)
-            { ChangeChangAttribute(); }
 
+                //--- 属性変更 ---
+                if (gameManager.CurrentPlayerAttackMethod ==
+                    GameManager.ePlayerAttackMethod.Magic)
+                { ChangeChangAttribute(); }
+            }
 
             //--- 攻撃処理 ---
             Attack();
@@ -121,38 +130,58 @@ public class PlayerAttack : MonoBehaviour
         //--- 攻撃処理 ---
         if (playerInputSystem.Player.Attack.triggered)
         {
-            Debug.Log("攻撃 方法【 " + gameManager.CurrentPlayerAttackMethod + " 】");
-            Debug.Log("攻撃 属性【 " + gameManager.CurrentPlayerAttributeState + " 】");
-            Debug.Log("攻撃 段階【 " + gameManager.CurrentPlayerAttackStage + " 】");
 
-            //--- 攻撃方法 判定処理 ---
-            switch (gameManager.CurrentPlayerAttackMethod)
+            isAttack = true;    // 攻撃 検知フラグON
+
+            if (isAttack)
             {
-                // 物理攻撃 処理
-                case GameManager.ePlayerAttackMethod.Physics:
-                    PhysicsAttack();
+                Debug.Log("攻撃 方法【 " + gameManager.CurrentPlayerAttackMethod + " 】");
+                Debug.Log("攻撃 属性【 " + gameManager.CurrentPlayerAttributeState + " 】");
+                Debug.Log("攻撃 段階【 " + gameManager.CurrentPlayerAttackStage + " 】");
 
-                    break;
-                // 魔法攻撃 処理
-                case GameManager.ePlayerAttackMethod.Magic:
-                    MagicAttack();
+                //--- 攻撃方法 判定処理 ---
+                switch (gameManager.CurrentPlayerAttackMethod)
+                {
+                    // 物理攻撃 処理
+                    case GameManager.ePlayerAttackMethod.Physics:
+                        PhysicsAttack();
 
-                    break;
-                default:
-                    break;
+                        break;
+                    //--- 魔法 攻撃状態 ---
+                    case GameManager.ePlayerAttackMethod.Magic:
+                        MagicAttack();
+
+                        break;
+                }
+
             }
+
         }
+
+        if(!isAttack)
+        {
+            Debug.Log("攻撃アニメーション終わり");
+            playerAnimation.PlayerAttackAnimationEnd();
+        }
+    }
+
+    //--- 攻撃終了フラグ検知 ---
+    void AttackEnd()
+    {
+        isAttack = false;
     }
 
     //--- 物理攻撃 ---
     void PhysicsAttack()
     {
-
+        playerAnimation.PlayerPhysicsAttackAnimation(); // 攻撃アニメーション
     }
 
     //--- 魔法攻撃 ---
     void MagicAttack()
     {
+        playerAnimation.PlayerMagicAttackAnimation();   // 攻撃アニメーション
+
         //--- 攻撃段階 判定処理 ---
         switch (gameManager.CurrentPlayerAttackStage)
         {

@@ -79,7 +79,7 @@ public class PlayerAnimation : MonoBehaviour
 
 
             //=== ジャンプアニメーション ===
-            if (PlayerController.isJump == true && !isJump)
+            if (!isJump && PlayerController.isJump)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
@@ -180,4 +180,51 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+    //=== 自作メソッド ===
+    //--- 物理 攻撃アニメーションをオンにする関数
+    public void PlayerPhysicsAttackAnimation()
+    {
+        //--- 物理 攻撃状態 ---
+        Anime.SetBool("Attack_Physics", true);
+    }
+
+    //--- 物理 攻撃アニメーションをオンにする関数
+    public void PlayerMagicAttackAnimation()
+    {
+        switch (gameManager.CurrentPlayerAttributeState)
+        {
+            // 火 属性
+            case GameManager.ePlayerAttributeState.Fire:
+                Anime.SetBool("Attack_Magic_Fire", true);
+
+                break;
+            // 水 属性
+            case GameManager.ePlayerAttributeState.Water:
+                Anime.SetBool("Attack_Magic_Water", true);
+
+                break;
+            // 風 属性
+            case GameManager.ePlayerAttributeState.Wind:
+                Anime.SetBool("Attack_Magic_Wind", true);
+
+                break;
+            // 土 属性
+            case GameManager.ePlayerAttributeState.Earth:
+                Anime.SetBool("Attack_Magic_Earth", true);
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    //--- 攻撃アニメーションをオフにする関数 ---
+    public void PlayerAttackAnimationEnd()
+    {
+        Anime.SetBool("Attack_Physics", false);
+        Anime.SetBool("Attack_Magic_Fire", false);
+        Anime.SetBool("Attack_Magic_Water", false);
+        Anime.SetBool("Attack_Magic_Wind", false);
+        Anime.SetBool("Attack_Magic_Earth", false);
+    }
 }
