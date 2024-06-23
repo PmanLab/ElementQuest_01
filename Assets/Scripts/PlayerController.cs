@@ -21,9 +21,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
 
     //--- 検知フラグ ---
-    public static bool isJump = false;
-    public static bool isRun = false;
-    public static bool isWalk = false;
+    public static bool isJump = false;      // ジャンプ 検知用
+    public static bool isRun = false;       // 走り 検知用
+    public static bool isWalk = false;      // 歩き 検知用
 
     bool isGround = false;
     bool isFacingRight = false; // プレイヤーの向きを追跡するためのフラグ
