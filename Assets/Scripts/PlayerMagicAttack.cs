@@ -8,6 +8,7 @@ public class PlayerMagicAttack : MonoBehaviour
 
     //--- 情報格納用インスタンス ---
     private GameObject playerObj;
+    public static GameObject bullet;
 
     //--- 魔法Prefab格納用 ---
     [SerializeField, Header("火 魔法 初級 Prefab")] private GameObject Fire_Beginner;           // 火 初級
@@ -38,6 +39,7 @@ public class PlayerMagicAttack : MonoBehaviour
     [SerializeField, Header("魔法の移動速度")] private float fSpeed = 2.0f;                     // 魔法 速度
     [SerializeField, Header("魔法の消滅時間")] private float fDestroyTime = 2.0f;               // 魔法の消滅時間
 
+    //--- Vector宣言 ---
     private Vector3 offset; // プレイヤーの高さを考慮してオフセットを設定
     private Vector2 force;
     private Vector2 direction;
@@ -46,7 +48,7 @@ public class PlayerMagicAttack : MonoBehaviour
     private void Start()
     {
         playerObj = gameObject; // このスクリプトがアタッチされているオブジェクトをプレイヤーとする
-        
+
         //--- プレイヤーの向きに合わせて生成位置を調整する ---
         if (playerObj.transform.localScale.x < 0)
         {
@@ -76,7 +78,7 @@ public class PlayerMagicAttack : MonoBehaviour
     public void FireBeginnerAttack()
     {
         // 魔法の複製 
-        GameObject bullet = Instantiate(Fire_Beginner);
+        bullet = Instantiate(Fire_Beginner);
 
         // 弾丸の位置を調整
         bullet.transform.position = playerObj.transform.position + offset;
@@ -98,8 +100,9 @@ public class PlayerMagicAttack : MonoBehaviour
             rb.AddForce(force, ForceMode2D.Impulse);
         }
 
-        // 指定した秒数後に弾丸を削除
+        // 秒数指定 魔法削除
         Destroy(bullet, fDestroyTime);
+
     }
     public void FireIntermediateAttack()
     {

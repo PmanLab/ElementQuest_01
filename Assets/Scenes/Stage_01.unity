@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 86127744}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2692,7 +2692,7 @@ GameObject:
   - component: {fileID: 1193827424}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3196,6 +3196,7 @@ GameObject:
   - component: {fileID: 1256978618}
   - component: {fileID: 1256978622}
   - component: {fileID: 1256978621}
+  - component: {fileID: 1256978623}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Enemy
@@ -3340,6 +3341,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &1256978623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256978616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7611b6f56ecbf4899fda83fcf2a403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1344393636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3354,7 +3367,7 @@ GameObject:
   - component: {fileID: 1344393640}
   m_Layer: 0
   m_Name: Scaffold
-  m_TagString: Untagged
+  m_TagString: Scaffold
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3745,7 +3758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09808a4c25156ec458bb229192cb87e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fAttackLevel: 5
 --- !u!114 &1832146025
 MonoBehaviour:
   m_ObjectHideFlags: 0
