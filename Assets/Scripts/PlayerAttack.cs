@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     private PlayerAnimation playerAnimation;
 
     //--- シリアライズ変数 ---
-    [SerializeField, Header("基本 攻撃力")] public float fAttackLevel = 5.0f;
+    [SerializeField, Header("基本 攻撃力")] public static float fAttackLevel = 5.0f;
 
     //--- 検知用フラグ ---
     public static bool isAttack = false;    // 攻撃検知用
