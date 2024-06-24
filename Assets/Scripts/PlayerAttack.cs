@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
     //--- 格納用インスタンス ---
     private PlayerInputSystem playerInputSystem;
     private GameManager gameManager;
+    private PlayerMagicAttack playerMagicAttack;
     private PlayerAnimation playerAnimation;
 
     //--- シリアライズ変数 ---
@@ -19,10 +20,11 @@ public class PlayerAttack : MonoBehaviour
     //=== 初期化処理 ===
     void Start()
     {
-        playerInputSystem = new PlayerInputSystem();        // インスタンス情報取得
-        playerInputSystem.Enable();                         // 入力受付開始
-        gameManager = GameManager.Instance;                 // GameManagerを取得
-        playerAnimation = GetComponent<PlayerAnimation>();
+        playerInputSystem = new PlayerInputSystem();                // インスタンス情報取得
+        playerInputSystem.Enable();                                 // 入力受付開始
+        gameManager = GameManager.Instance;                         // GameManagerを取得
+        playerAnimation = GetComponent<PlayerAnimation>();          // 
+        playerMagicAttack = GetComponent<PlayerMagicAttack>();      //
 
     }
 
@@ -181,101 +183,86 @@ public class PlayerAttack : MonoBehaviour
     {
         playerAnimation.PlayerMagicAttackAnimation();   // 攻撃アニメーション
 
-        //--- 攻撃段階 判定処理 ---
-        switch (gameManager.CurrentPlayerAttackStage)
-        {
-            // 初級
-            case GameManager.ePlayerAttackStageState.Beginner:
-                BeginnerMagicAttack();
-                break;
-            // 中級
-            case GameManager.ePlayerAttackStageState.Intermediate:
-                IntermediateMagicAttack();
-                break;
-            // 上級
-            case GameManager.ePlayerAttackStageState.Advanced:
-                AdvancedMagic();
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    //--- 初級魔法 ---
-    void BeginnerMagicAttack()
-    {
         //--- 属性判定 ---
         switch (gameManager.CurrentPlayerAttributeState)
         {
             // 火 属性
             case GameManager.ePlayerAttributeState.Fire:
+                //--- 攻撃段階 判定 ---
+                switch(gameManager.CurrentPlayerAttackStage)
+                {
+                    case GameManager.ePlayerAttackStageState.Beginner:
+                        playerMagicAttack.FireBeginnerAttack();
+                        break;
+                    case GameManager.ePlayerAttackStageState.Intermediate:
+                        playerMagicAttack.FireIntermediateAttack();
+
+                        break;
+                    case GameManager.ePlayerAttackStageState.Advanced:
+                        playerMagicAttack.FireAdvancedAttack();
+
+                        break;
+                }
 
                 break;
             // 水 属性
             case GameManager.ePlayerAttributeState.Water:
+                //--- 攻撃段階 判定 ---
+                switch (gameManager.CurrentPlayerAttackStage)
+                {
+                    case GameManager.ePlayerAttackStageState.Beginner:
+                        playerMagicAttack.WaterBeginnerAttack();
+                        
+                        break;
+                    case GameManager.ePlayerAttackStageState.Intermediate:
+                        playerMagicAttack.WaterIntermediateAttack();
+
+                        break;
+                    case GameManager.ePlayerAttackStageState.Advanced:
+                        playerMagicAttack.WaterAdvancedAttack();
+
+                        break;
+                }
 
                 break;
             // 風 属性
             case GameManager.ePlayerAttributeState.Wind:
+                //--- 攻撃段階 判定 ---
+                switch (gameManager.CurrentPlayerAttackStage)
+                {
+                    case GameManager.ePlayerAttackStageState.Beginner:
+                        playerMagicAttack.WindBeginnerAttack();
+
+                        break;
+                    case GameManager.ePlayerAttackStageState.Intermediate:
+                        playerMagicAttack.WindIntermediateAttack();
+
+                        break;
+                    case GameManager.ePlayerAttackStageState.Advanced:
+                        playerMagicAttack.WindAdvancedAttack();
+
+                        break;
+                }
 
                 break;
             // 土 属性
             case GameManager.ePlayerAttributeState.Earth:
+                //--- 攻撃段階 判定 ---
+                switch (gameManager.CurrentPlayerAttackStage)
+                {
+                    case GameManager.ePlayerAttackStageState.Beginner:
+                        playerMagicAttack.EarthBeginnerAttack();
 
-                break;
-            default:
-                break;
-        }
-    }
+                        break;
+                    case GameManager.ePlayerAttackStageState.Intermediate:
+                        playerMagicAttack.EarthIntermediateAttack();
 
-    //--- 中級魔法 ---
-    void IntermediateMagicAttack()
-    {
-        //--- 属性判定 ---
-        switch (gameManager.CurrentPlayerAttributeState)
-        {
-            // 火 属性
-            case GameManager.ePlayerAttributeState.Fire:
+                        break;
+                    case GameManager.ePlayerAttackStageState.Advanced:
+                        playerMagicAttack.EarthAdvancedAttack();
 
-                break;
-            // 水 属性
-            case GameManager.ePlayerAttributeState.Water:
-
-                break;
-            // 風 属性
-            case GameManager.ePlayerAttributeState.Wind:
-
-                break;
-            // 土 属性
-            case GameManager.ePlayerAttributeState.Earth:
-
-                break;
-            default:
-                break;
-        }
-    }
-
-    //--- 上級魔法 ---
-    void AdvancedMagic()
-    {
-        //--- 属性判定 ---
-        switch (gameManager.CurrentPlayerAttributeState)
-        {
-            // 火 属性
-            case GameManager.ePlayerAttributeState.Fire:
-
-                break;
-            // 水 属性
-            case GameManager.ePlayerAttributeState.Water:
-
-                break;
-            // 風 属性
-            case GameManager.ePlayerAttributeState.Wind:
-
-                break;
-            // 土 属性
-            case GameManager.ePlayerAttributeState.Earth:
+                        break;
+                }
 
                 break;
             default:

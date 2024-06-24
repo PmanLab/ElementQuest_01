@@ -19,6 +19,7 @@ TagManager:
   - Earth_Beginner
   - Earth_Intermediate
   - Earth_Advanced
+  - Enemy
   layers:
   - Default
   - TransparentFX
