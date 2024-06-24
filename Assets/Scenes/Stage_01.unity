@@ -3353,6 +3353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc7611b6f56ecbf4899fda83fcf2a403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentEnemyAttribute: 0
+  fEnemyLives: 15
 --- !u!1 &1344393636
 GameObject:
   m_ObjectHideFlags: 0
@@ -3782,8 +3784,8 @@ MonoBehaviour:
   Earth_Beginner: {fileID: 8684414620679384463, guid: e0cf11eb9140e9340810560466b0fe54, type: 3}
   Earth_Intermediate: {fileID: 4221960191141871008, guid: 25fc2fc5626995e4faf1a5aabcdd943a, type: 3}
   Earth_Advanced: {fileID: 6392843422559814139, guid: 1882f22b1d9a3244c83bf705fafc4e7a, type: 3}
-  fLeftOffSetX: 1
-  fRightOffSetX: -1
+  fLeftOffSetX: 1.5
+  fRightOffSetX: -1.5
   fLeftOffSetY: 1.5
   fRightOffSetY: 1.5
   fLeftOffSetZ: 0
