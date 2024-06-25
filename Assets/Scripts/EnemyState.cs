@@ -6,7 +6,7 @@ using static GameManager;
 public class EnemyState : MonoBehaviour
 {
     //=== —ñ‹“Œ^’è‹` ===
-    //--- “G‚Ì¶‘¶ó‘Ô‚ğŠÇ—‚·‚é ---
+    //--- “G‚Ì¶‘¶ó‘Ô ‚ğŠÇ—‚·‚é—ñ‹“ ---
     private enum eEnemyState
     {
         Survival = 0,
@@ -14,7 +14,8 @@ public class EnemyState : MonoBehaviour
         MAX_ENEMYSTATE,
     }
 
-    public enum eEnemyAttribute
+    //--- “G‘®« ‚ğŠÇ—‚·‚é—ñ‹“ ---
+    private enum eEnemyAttribute
     {
         Fire = 0,
         Water,
@@ -23,17 +24,30 @@ public class EnemyState : MonoBehaviour
         MAX_ENEMYATTRIBUTE,
     }
 
+    //--- –‚–@ÚG‚Ì‘®«”»’è ‚ğŠÇ—‚·‚é—ñ‹“ ---
+    private enum eHitMagicAttribute
+    {
+        Normal = 0,
+        Fire,
+        Water,
+        Wind,
+        Earth,
+        MAX_HITMAGICATTRIBUTE,
+
+    }
+
 
     //=== •Ï”éŒ¾ ===
-    private eEnemyState CurrentEnemyState;
-    [SerializeField, Header("“G ‘®«‘I‘ğ")] public eEnemyAttribute CurrentEnemyAttribute;
+    private eEnemyState CurrentEnemyState = eEnemyState.Survival;
+    private eHitMagicAttribute hitMagicAttribute;
+    [SerializeField, Header("“G ‘®«‘I‘ğ")] private eEnemyAttribute CurrentEnemyAttribute;
     [SerializeField, Header("“G HP“ü—Í")] private float fEnemyLives = 15.0f;
 
 
     //=== ‰Šú‰»ˆ— ===
     void Start()
     {
-        fEnemyLives = 15;
+        
     }
 
     //=== XVˆ— ===
@@ -45,25 +59,27 @@ public class EnemyState : MonoBehaviour
     //=== ÚG ˆ— ===
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
+
         //--- ‰Î –‚–@‚ª‚ ‚½‚Á‚½ ---
-        if (collision.gameObject.CompareTag("Fire_Beginner")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Fire_Intermediate")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Fire_Advanced")) { LoseLife(); }
+        if (collision.gameObject.CompareTag("Fire_Beginner")) { LoseLife(eHitMagicAttribute.Fire); }
+        if (collision.gameObject.CompareTag("Fire_Intermediate")) { LoseLife(eHitMagicAttribute.Fire); }
+        if (collision.gameObject.CompareTag("Fire_Advanced")) { LoseLife(eHitMagicAttribute.Fire); }
 
         //--- … –‚–@‚ª‚ ‚½‚Á‚½ ---
-        if (collision.gameObject.CompareTag("Water_Beginner")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Water_Intermediate")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Water_Advanced")) { LoseLife(); }
+        if (collision.gameObject.CompareTag("Water_Beginner")) { LoseLife(eHitMagicAttribute.Water); }
+        if (collision.gameObject.CompareTag("Water_Intermediate")) { LoseLife(eHitMagicAttribute.Water); }
+        if (collision.gameObject.CompareTag("Water_Advanced")) { LoseLife(eHitMagicAttribute.Water); }
 
         //--- •— –‚–@‚ª‚ ‚½‚Á‚½ ---
-        if (collision.gameObject.CompareTag("Wind_Beginner")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Wind_Intermediate")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Wind_Advanced")) { LoseLife(); }
+        if (collision.gameObject.CompareTag("Wind_Beginner")) { LoseLife(eHitMagicAttribute.Wind); }
+        if (collision.gameObject.CompareTag("Wind_Intermediate")) { LoseLife(eHitMagicAttribute.Wind); }
+        if (collision.gameObject.CompareTag("Wind_Advanced")) { LoseLife(eHitMagicAttribute.Wind); }
 
         //--- “y –‚–@‚ª‚ ‚½‚Á‚½ ---
-        if (collision.gameObject.CompareTag("Earth_Beginner")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Earth_Intermediate")) { LoseLife(); }
-        if (collision.gameObject.CompareTag("Earth_Advanced")) { LoseLife(); }
+        if (collision.gameObject.CompareTag("Earth_Beginner")) { LoseLife(eHitMagicAttribute.Earth); }
+        if (collision.gameObject.CompareTag("Earth_Intermediate")) { LoseLife(eHitMagicAttribute.Earth); }
+        if (collision.gameObject.CompareTag("Earth_Advanced")) { LoseLife(eHitMagicAttribute.Earth); }
 
     }
 
@@ -80,13 +96,96 @@ public class EnemyState : MonoBehaviour
     }
 
     //--- ƒ‰ƒCƒt‚ğŒ¸­‚³‚¹‚éƒƒ\ƒbƒh ---
-    private void LoseLife()
+    private void LoseLife(eHitMagicAttribute newState)
     {
-        fEnemyLives -= PlayerAttack.fAttackLevel;
+        hitMagicAttribute = newState;
+
+        switch(hitMagicAttribute)
+        {
+            // •¨— UŒ‚‚ğó‚¯‚½‚Æ‚«
+            case eHitMagicAttribute.Normal:
+                fEnemyLives -= (PlayerAttack.fAttackLevel / 4.0f);
+                break;
+            // ‰Î ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
+            case eHitMagicAttribute.Fire:
+                switch (CurrentEnemyAttribute)
+                {
+                    case eEnemyAttribute.Fire:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel);
+                        break;
+                    case eEnemyAttribute.Water:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 2.0f);
+                        break;
+                    case eEnemyAttribute.Wind:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel * 2.0f);
+                        break;
+                    case eEnemyAttribute.Earth:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 1.5f);
+                        break;
+                }
+                break;
+            // … ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
+            case eHitMagicAttribute.Water:
+                switch (CurrentEnemyAttribute)
+                {
+                    case eEnemyAttribute.Fire:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel * 2.0f);
+                        break;
+                    case eEnemyAttribute.Water:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel);
+                        break;
+                    case eEnemyAttribute.Wind:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 2.0f);
+                        break;
+                    case eEnemyAttribute.Earth:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 1.5f);
+                        break;
+                }
+                break;
+            // •— ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
+            case eHitMagicAttribute.Wind:
+                switch (CurrentEnemyAttribute)
+                {
+                    case eEnemyAttribute.Fire:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 2.0f);
+                        break;
+                    case eEnemyAttribute.Water:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel * 2.0f);
+                        break;
+                    case eEnemyAttribute.Wind:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel);
+                        break;
+                    case eEnemyAttribute.Earth:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 1.5f);
+                        break;
+                }
+                break;
+            // “y ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
+            case eHitMagicAttribute.Earth:
+                switch (CurrentEnemyAttribute)
+                {
+                    case eEnemyAttribute.Fire:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel * 1.5f);
+                        break;
+                    case eEnemyAttribute.Water:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel / 1.5f);
+                        break;
+                    case eEnemyAttribute.Wind:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel * 1.5f);
+                        break;
+                    case eEnemyAttribute.Earth:
+                        fEnemyLives -= (PlayerAttack.fAttackLevel);
+                        break;
+                }
+                break;
+        }
+
         if (fEnemyLives <= 0)
         {
             SetEnemyState(eEnemyState.Death);
         }
+
+
     }
 
 
