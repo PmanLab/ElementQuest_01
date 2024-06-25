@@ -28,12 +28,12 @@ public class PlayerMagicAttack : MonoBehaviour
     [SerializeField, Header("土 魔法 上級 Prefab")] private GameObject Earth_Advanced;          // 土 上級
 
     //--- 魔法 生成座標格納用 ---
-    [SerializeField, Header("魔法 生成位置 左向き：X ] 座標調整")] private float fLeftOffSetX = 0.5f;         // 魔法 発射位置調整 X座標
-    [SerializeField, Header("魔法 生成位置 右向き：X ] 座標調整")] private float fRightOffSetX = -0.5f;         // 魔法 発射位置調整 X座標
-    [SerializeField, Header("魔法 生成位置 左向き：Y ] 座標調整")] private float fLeftOffSetY = 1.5f;         // 魔法 発射位置調整 Y座標
-    [SerializeField, Header("魔法 生成位置 右向き：Y ] 座標調整")] private float fRightOffSetY = 1.5f;         // 魔法 発射位置調整 Y座標
-    [SerializeField, Header("魔法 生成位置 左向き：Z ] 座標調整")] private float fLeftOffSetZ = 0.0f;         // 魔法 発射位置調整 Z座標
-    [SerializeField, Header("魔法 生成位置 右向き：Z ] 座標調整")] private float fRightOffSetZ = 0.0f;         // 魔法 発射位置調整 Z座標
+    [SerializeField, Header("魔法 生成位置 [ 右向き：X ] 座標調整")] private float fLeftOffSetX = 0.5f;         // 魔法 発射位置調整 X座標
+    [SerializeField, Header("魔法 生成位置 [ 左向き：X ] 座標調整")] private float fRightOffSetX = -0.5f;         // 魔法 発射位置調整 X座標
+    [SerializeField, Header("魔法 生成位置 [ 右向き：Y ] 座標調整")] private float fLeftOffSetY = 1.5f;         // 魔法 発射位置調整 Y座標
+    [SerializeField, Header("魔法 生成位置 [ 左向き：Y ] 座標調整")] private float fRightOffSetY = 1.5f;         // 魔法 発射位置調整 Y座標
+    [SerializeField, Header("魔法 生成位置 [ 右向き：Z ] 座標調整")] private float fLeftOffSetZ = 0.0f;         // 魔法 発射位置調整 Z座標
+    [SerializeField, Header("魔法 生成位置 [ 左向き：Z ] 座標調整")] private float fRightOffSetZ = 0.0f;         // 魔法 発射位置調整 Z座標
 
     //--- 魔法 ステータス情報 ---
     [SerializeField, Header("魔法の移動速度")] private float fSpeed = 2.0f;                     // 魔法 速度

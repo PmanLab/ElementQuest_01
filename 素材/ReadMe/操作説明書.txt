@@ -1,0 +1,35 @@
+|========================================
+|                                     【 操作説明書 】                                   
+|========================================
+|　キーボードとコントーラーに対応しています。　
+|========================================
+|				【 キーボード(Keyboard) 】
+|========================================
+[--- 移動(Move) ---]
+A：左 移動(Left Move)
+D：右 移動(Right Move)
+Shift + 移動キー(Shift + Move Key)：ダッシュ(Dash)
+
+[--- ジャンプ(Jump) ----]
+Space：ジャンプ(Jump)
+
+[--- 攻撃(Attack) ---]
+Enter：攻撃(Attack)
+K：攻撃方法の切り替え(物理と魔法)(ChangedMethod(Physics、Magic))
+L：魔法属性の切り替え(火、水、風、土)(ChangedAttribute(Fire、Water、Wind、Earth))
+|========================================
+|				【 コントローラー(Controller) 】
+|========================================
+[--- 移動(Move) ---]
+左スティック(Left Stick)：左 移動(Left Move)
+右スティック(Right Stick)：右 移動(Right Move)
+ LB(Left Shoulder)+ 移動キー(LB(Left Shoulder))：ダッシュ(Dash)
+ RB(Right Shoulder)+ 移動キー(RB(Right Shoulder + ))：ダッシュ(Dash)
+
+[--- ジャンプ(Jump) ----]
+Space：ジャンプ(Jump)
+
+[--- 攻撃(Attack) ---]
+：攻撃(Attack)
+K：攻撃方法の切り替え(物理と魔法)(ChangedMethod(Physics、Magic))
+L：魔法属性の切り替え(火、水、風、土)(ChangedAttribute(Fire、Water、Wind、Earth))

@@ -53,7 +53,6 @@ public class EnemyState : MonoBehaviour
     //=== 更新処理 ===
     void Update()
     {
-        
     }
 
     //=== 接触 処理 ===
@@ -100,6 +99,7 @@ public class EnemyState : MonoBehaviour
     {
         hitMagicAttribute = newState;
 
+        //--- 属性相性チェック ---
         switch(hitMagicAttribute)
         {
             // 物理 攻撃を受けたとき

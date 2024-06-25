@@ -28,7 +28,7 @@ public class PlayerAnimation : MonoBehaviour
             //=== 待機モーション ===
             switch (gameManager.CurrentPlayerAttackMethod)
             {
-                //--- 物理 攻撃状態 ---
+                //--- 物理 待機状態 ---
                 case GameManager.ePlayerAttackMethod.Physics:
                     if (!Anime.GetBool("Idol_Normal"))
                     {
@@ -42,7 +42,7 @@ public class PlayerAnimation : MonoBehaviour
                     break;
 
 
-                //--- 魔法 攻撃状態 ---
+                //--- 各属性 待機状態 ---
                 case GameManager.ePlayerAttackMethod.Magic:
                     if (Anime.GetBool("Idol_Normal"))
                     { Anime.SetBool("Idol_Normal", false); }
@@ -227,11 +227,40 @@ public class PlayerAnimation : MonoBehaviour
             Anime.GetBool("Attack_Magic_Wind") ||
             Anime.GetBool("Attack_Magic_Earth"))
         {
-            Anime.SetBool("Attack_Physics", false);
-            Anime.SetBool("Attack_Magic_Fire", false);
-            Anime.SetBool("Attack_Magic_Water", false);
-            Anime.SetBool("Attack_Magic_Wind", false);
-            Anime.SetBool("Attack_Magic_Earth", false);
+            PlayerAttackPhysicsAnimationEnd();
+            PlayerAttackFireAnimationEnd();
+            PlayerAttackWindAnimationEnd();
+            PlayerAttackWaterAnimationEnd();
+            PlayerAttackEarthAnimationEnd();
         }
+    }
+
+    public void PlayerAttackPhysicsAnimationEnd()
+    {
+        Anime.SetBool("Attack_Physics", false);
+
+    }
+
+    public void PlayerAttackFireAnimationEnd()
+    {
+        Anime.SetBool("Attack_Magic_Fire", false);
+
+    }
+
+    public void PlayerAttackWaterAnimationEnd()
+    {
+        Anime.SetBool("Attack_Magic_Water", false);
+
+    }
+
+    public void PlayerAttackWindAnimationEnd()
+    {
+        Anime.SetBool("Attack_Magic_Wind", false);
+
+    }
+
+    public void PlayerAttackEarthAnimationEnd()
+    {
+        Anime.SetBool("Attack_Magic_Earth", false);
     }
 }

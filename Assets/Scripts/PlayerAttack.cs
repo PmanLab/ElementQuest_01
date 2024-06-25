@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     private GameManager gameManager;
     private PlayerMagicAttack playerMagicAttack;
     private PlayerAnimation playerAnimation;
+    private Animator Anime;
 
     //--- ƒVƒŠƒAƒ‰ƒCƒY•Ï” ---
     [SerializeField, Header("Šî–{ UŒ‚—Í")] public static float fAttackLevel = 5.0f;
@@ -20,11 +21,12 @@ public class PlayerAttack : MonoBehaviour
     //=== ‰Šú‰»ˆ— ===
     void Start()
     {
-        playerInputSystem = new PlayerInputSystem();                // ƒCƒ“ƒXƒ^ƒ“ƒXî•ñæ“¾
+        playerInputSystem = new PlayerInputSystem();                // ƒCƒ“ƒXƒ^ƒ“ƒXî•ñ‚ğæ“¾
         playerInputSystem.Enable();                                 // “ü—Íó•tŠJn
         gameManager = GameManager.Instance;                         // GameManager‚ğæ“¾
-        playerAnimation = GetComponent<PlayerAnimation>();          // 
-        playerMagicAttack = GetComponent<PlayerMagicAttack>();      //
+        playerAnimation = GetComponent<PlayerAnimation>();          // ƒvƒŒƒCƒ„[ƒAƒjƒ[ƒVƒ‡ƒ“î•ñ‚ğæ“¾
+        playerMagicAttack = GetComponent<PlayerMagicAttack>();      // ƒvƒŒƒCƒ„[–‚–@UŒ‚î•ñ‚ğæ“¾
+        Anime = GetComponent<Animator>();                           // animatorî•ñ‚ğæ“¾
 
     }
 
@@ -129,45 +131,43 @@ public class PlayerAttack : MonoBehaviour
     //--- UŒ‚ˆ— ---
     void Attack()
     {
-        //--- UŒ‚ˆ— ---
-        if (playerInputSystem.Player.Attack.triggered)
+        if (!isAttack)
         {
-
-            isAttack = true;    // UŒ‚ ŒŸ’mƒtƒ‰ƒOON
-
-            if (isAttack)
+            //--- UŒ‚ˆ— ---
+            if (playerInputSystem.Player.Attack.triggered)
             {
-                Debug.Log("UŒ‚ •û–@y " + gameManager.CurrentPlayerAttackMethod + " z");
-                Debug.Log("UŒ‚ ‘®«y " + gameManager.CurrentPlayerAttributeState + " z");
-                Debug.Log("UŒ‚ ’iŠKy " + gameManager.CurrentPlayerAttackStage + " z");
+                isAttack = true;    // UŒ‚ ŒŸ’mƒtƒ‰ƒOON
 
-                //--- UŒ‚•û–@ ”»’èˆ— ---
-                switch (gameManager.CurrentPlayerAttackMethod)
+                //--- UŒ‚ƒtƒ‰ƒOON & UŒ‚ƒAƒjƒ[ƒVƒ‡ƒ“‚µ‚Ä‚¢‚È‚¢‚Æ‚« ---
+
                 {
-                    // •¨—UŒ‚ ˆ—
-                    case GameManager.ePlayerAttackMethod.Physics:
-                        PhysicsAttack();
+                    Debug.Log("UŒ‚ •û–@y " + gameManager.CurrentPlayerAttackMethod + " z");
+                    Debug.Log("UŒ‚ ‘®«y " + gameManager.CurrentPlayerAttributeState + " z");
+                    Debug.Log("UŒ‚ ’iŠKy " + gameManager.CurrentPlayerAttackStage + " z");
 
-                        break;
-                    //--- –‚–@ UŒ‚ó‘Ô ---
-                    case GameManager.ePlayerAttackMethod.Magic:
-                        MagicAttack();
+                    //--- UŒ‚•û–@ ”»’èˆ— ---
+                    switch (gameManager.CurrentPlayerAttackMethod)
+                    {
+                        // •¨—UŒ‚ ˆ—
+                        case GameManager.ePlayerAttackMethod.Physics:
+                            PhysicsAttack();
 
-                        break;
+                            break;
+                        //--- –‚–@ UŒ‚ó‘Ô ---
+                        case GameManager.ePlayerAttackMethod.Magic:
+                            MagicAttack();
+
+                            break;
+                    }
+
                 }
-
             }
 
-        }
-
-        if(!isAttack)
-        {
-            playerAnimation.PlayerAttackAnimationEnd();
         }
     }
 
     //--- UŒ‚I—¹ƒtƒ‰ƒOŒŸ’m ---
-    void AttackEnd()
+    public void AttackEnd()
     {
         isAttack = false;
     }
