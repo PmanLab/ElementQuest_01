@@ -15,9 +15,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField, Header("基本 攻撃力")] public static float fAttackLevel = 5.0f;
 
     //--- 検知用フラグ ---
-    public static bool isAttack = false;    // 攻撃検知用
-
-
+    public static bool isAttack = false;        // 攻撃検知用
+    
     //=== 初期化処理 ===
     void Start()
     {
@@ -155,7 +154,9 @@ public class PlayerAttack : MonoBehaviour
                             break;
                         //--- 魔法 攻撃状態 ---
                         case GameManager.ePlayerAttackMethod.Magic:
-                            MagicAttack();
+                            playerAnimation.PlayerMagicAttackAnimation();   // 攻撃アニメーション
+
+                            //MagicAttack();
 
                             break;
                     }
@@ -181,15 +182,13 @@ public class PlayerAttack : MonoBehaviour
     //--- 魔法攻撃 ---
     void MagicAttack()
     {
-        playerAnimation.PlayerMagicAttackAnimation();   // 攻撃アニメーション
-
         //--- 属性判定 ---
         switch (gameManager.CurrentPlayerAttributeState)
         {
             // 火 属性
             case GameManager.ePlayerAttributeState.Fire:
                 //--- 攻撃段階 判定 ---
-                switch(gameManager.CurrentPlayerAttackStage)
+                switch (gameManager.CurrentPlayerAttackStage)
                 {
                     case GameManager.ePlayerAttackStageState.Beginner:
                         playerMagicAttack.FireBeginnerAttack();
@@ -212,7 +211,7 @@ public class PlayerAttack : MonoBehaviour
                 {
                     case GameManager.ePlayerAttackStageState.Beginner:
                         playerMagicAttack.WaterBeginnerAttack();
-                        
+
                         break;
                     case GameManager.ePlayerAttackStageState.Intermediate:
                         playerMagicAttack.WaterIntermediateAttack();
