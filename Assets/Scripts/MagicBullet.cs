@@ -13,7 +13,13 @@ public class MagicBullet : MonoBehaviour
     //=== 更新処理 ===
     void Update()
     {
-        
+        // カメラのビューポート座標を取得
+        Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+        if (viewportPosition.x < 0 || viewportPosition.x > 1 || viewportPosition.y < 0 || viewportPosition.y > 1)
+        {
+            Destroy(gameObject);
+        }
+       
     }
 
     //=== 接触 処理 ===

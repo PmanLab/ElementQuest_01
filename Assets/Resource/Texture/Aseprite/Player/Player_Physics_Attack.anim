@@ -111,3 +111,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.9100002
+    functionName: PhysicsAttackEnd
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 09808a4c25156ec458bb229192cb87e5, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

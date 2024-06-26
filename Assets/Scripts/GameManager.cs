@@ -15,6 +15,17 @@ public class GameManager : MonoBehaviour
         MAX_GAMESTATE,
     }
 
+    //--- プレイヤーの状態を管理する ---
+    public enum ePlayerState
+    {
+        Normal = 0,     // 通常
+        TakeDamage,     // 被ダメージ時
+        Muteki,         // 無敵
+        Dead,           // 死亡
+        MAX_PLAYERSTATE,// 最大プレイヤー状態
+
+    }
+
     //--- プレイヤーの魔法属性を管理する---
     public enum ePlayerAttributeState
     {
@@ -47,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     //--- ゲームや色々の状態とプレイヤーデータ ---
     public eGameState CurrentGameState { get; set; }
+    public ePlayerState CurrentPlayerState { get; set; }
     public ePlayerAttributeState CurrentPlayerAttributeState { get; set; }
     public ePlayerAttackMethod CurrentPlayerAttackMethod { get; set; }
     public ePlayerAttackStageState CurrentPlayerAttackStage { get; set; }
@@ -95,6 +107,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void SetPlayerState(ePlayerState newState)
+    {
+        CurrentPlayerState = newState; 
+    }
+
     //=== プレイヤーの属性を設定するメソッド ===
     public void SetPlayerAttributeState(ePlayerAttributeState newState)
     {
@@ -119,10 +137,11 @@ public class GameManager : MonoBehaviour
     {
         //--- 初期情報 初期化 ---
         PlayerScore = 0;
-        PlayerLives = 3;
+        PlayerLives = 5;
 
         //--- 状態 初期化 ---
         SetGameState(eGameState.Playing);                               // ゲーム状態
+        SetPlayerState(ePlayerState.Normal);                            // プレイヤー 状態
         SetPlayerAttackMethodState(ePlayerAttackMethod.Physics);        // プレイヤー 攻撃 方法
         SetPlayerAttackStageState(ePlayerAttackStageState.Beginner);    // プレイヤー 攻撃 段階
         SetPlayerAttributeState(ePlayerAttributeState.Fire);            // プレイヤー 攻撃 属性

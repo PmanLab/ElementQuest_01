@@ -62,6 +62,7 @@ public class PlayerMagicAttack : MonoBehaviour
 
     private void Update()
     {
+
         //--- プレイヤーの向きに合わせて生成位置を調整する ---
         if (playerObj.transform.localScale.x < 0)
         {

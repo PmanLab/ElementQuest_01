@@ -5,6 +5,7 @@ using static GameManager;
 
 public class EnemyState : MonoBehaviour
 {
+
     //=== —ñ‹“Œ^’è‹` ===
     //--- “G‚Ì¶‘¶ó‘Ô ‚ğŠÇ—‚·‚é—ñ‹“ ---
     private enum eEnemyState
@@ -12,16 +13,6 @@ public class EnemyState : MonoBehaviour
         Survival = 0,
         Death,
         MAX_ENEMYSTATE,
-    }
-
-    //--- “G‘®« ‚ğŠÇ—‚·‚é—ñ‹“ ---
-    private enum eEnemyAttribute
-    {
-        Fire = 0,
-        Water,
-        Wind,
-        Earth,
-        MAX_ENEMYATTRIBUTE,
     }
 
     //--- –‚–@ÚG‚Ì‘®«”»’è ‚ğŠÇ—‚·‚é—ñ‹“ ---
@@ -35,19 +26,38 @@ public class EnemyState : MonoBehaviour
         MAX_HITMAGICATTRIBUTE,
 
     }
+    
+    //--- “G‘®« ‚ğŠÇ—‚·‚é—ñ‹“ ---
+    private enum eEnemyAttribute
+    {
+        Fire = 0,
+        Water,
+        Wind,
+        Earth,
+        MAX_ENEMYATTRIBUTE,
+    }
 
+    //--- “Gí—Ş‚ğŠÇ—‚·‚é—ñ‹“
+    public enum eEnemyType
+    {
+        Slime = 0,
+        MAX_ENEMYTYPE,
+    }
+
+    //--- Ši”[—pƒCƒ“ƒXƒ^ƒ“ƒX ---
+    private GameManager gameManager;
 
     //=== •Ï”éŒ¾ ===
     private eEnemyState CurrentEnemyState = eEnemyState.Survival;
     private eHitMagicAttribute hitMagicAttribute;
-    [SerializeField, Header("“G ‘®«‘I‘ğ")] private eEnemyAttribute CurrentEnemyAttribute;
-    [SerializeField, Header("“G HP“ü—Í")] private float fEnemyLives = 15.0f;
-
+    [SerializeField, Header("“G í—Ş ‘I‘ğ")] public eEnemyType EnemyType;
+    [SerializeField, Header("“G ‘®« ‘I‘ğ")] private eEnemyAttribute EnemyAttribute;
+    [SerializeField, Header("“G HP “ü—Í")] private float fEnemyLives = 15.0f;
 
     //=== ‰Šú‰»ˆ— ===
     void Start()
     {
-        
+        gameManager = GameManager.Instance;                 // GameManager‚ğæ“¾
     }
 
     //=== XVˆ— ===
@@ -58,7 +68,12 @@ public class EnemyState : MonoBehaviour
     //=== ÚG ˆ— ===
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        //--- •¨— UŒ‚‚ª‚ ‚½‚Á‚½ ---
+        if (PlayerAttack.bIsAttack &&
+            gameManager.CurrentPlayerAttackMethod == 
+            ePlayerAttackMethod.Physics && 
+            collision.gameObject.CompareTag("Player"))
+        { LoseLife(eHitMagicAttribute.Normal); }
 
         //--- ‰Î –‚–@‚ª‚ ‚½‚Á‚½ ---
         if (collision.gameObject.CompareTag("Fire_Beginner")) { LoseLife(eHitMagicAttribute.Fire); }
@@ -108,7 +123,7 @@ public class EnemyState : MonoBehaviour
                 break;
             // ‰Î ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
             case eHitMagicAttribute.Fire:
-                switch (CurrentEnemyAttribute)
+                switch (EnemyAttribute)
                 {
                     case eEnemyAttribute.Fire:
                         fEnemyLives -= (PlayerAttack.fAttackLevel);
@@ -126,7 +141,7 @@ public class EnemyState : MonoBehaviour
                 break;
             // … ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
             case eHitMagicAttribute.Water:
-                switch (CurrentEnemyAttribute)
+                switch (EnemyAttribute)
                 {
                     case eEnemyAttribute.Fire:
                         fEnemyLives -= (PlayerAttack.fAttackLevel * 2.0f);
@@ -144,7 +159,7 @@ public class EnemyState : MonoBehaviour
                 break;
             // •— ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
             case eHitMagicAttribute.Wind:
-                switch (CurrentEnemyAttribute)
+                switch (EnemyAttribute)
                 {
                     case eEnemyAttribute.Fire:
                         fEnemyLives -= (PlayerAttack.fAttackLevel / 2.0f);
@@ -162,7 +177,7 @@ public class EnemyState : MonoBehaviour
                 break;
             // “y ‘®«–‚–@‚ğó‚¯‚½‚Æ‚«
             case eHitMagicAttribute.Earth:
-                switch (CurrentEnemyAttribute)
+                switch (EnemyAttribute)
                 {
                     case eEnemyAttribute.Fire:
                         fEnemyLives -= (PlayerAttack.fAttackLevel * 1.5f);

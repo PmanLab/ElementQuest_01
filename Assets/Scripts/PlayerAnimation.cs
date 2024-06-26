@@ -10,7 +10,7 @@ public class PlayerAnimation : MonoBehaviour
     private GameManager gameManager;
 
     //--- 検知用フラグ ---
-    public static bool isJump = false;              // ジャンプアニメーション中か判定するフラグ
+    public static bool bIsJump = false;              // ジャンプアニメーション中か判定するフラグ
 
     //=== 初期化 処理 ===
     void Start()
@@ -79,7 +79,7 @@ public class PlayerAnimation : MonoBehaviour
 
 
             //=== ジャンプアニメーション ===
-            if (!isJump && PlayerController.isJump)
+            if (!bIsJump && PlayerController.bIsJump)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
@@ -87,7 +87,7 @@ public class PlayerAnimation : MonoBehaviour
                     case GameManager.ePlayerAttackMethod.Physics:
                         // 物理攻撃時はすべての属性アニメーションをfalseに設定
                         Anime.SetBool("Jump_Normal", true);
-                        isJump = true;
+                        bIsJump = true;
 
                         break;
 
@@ -98,25 +98,25 @@ public class PlayerAnimation : MonoBehaviour
                             // 火 属性
                             case GameManager.ePlayerAttributeState.Fire:
                                 Anime.SetBool("Jump_Fire", true);
-                                isJump = true;
+                                bIsJump = true;
 
                                 break;
                             // 水 属性
                             case GameManager.ePlayerAttributeState.Water:
                                 Anime.SetBool("Jump_Water", true);
-                                isJump = true;
+                                bIsJump = true;
 
                                 break;
                             // 風 属性
                             case GameManager.ePlayerAttributeState.Wind:
                                 Anime.SetBool("Jump_Wind", true);
-                                isJump = true;
+                                bIsJump = true;
 
                                 break;
                             // 土 属性
                             case GameManager.ePlayerAttributeState.Earth:
                                 Anime.SetBool("Jump_Earth", true);
-                                isJump = true;
+                                bIsJump = true;
 
                                 break;
                             default:
@@ -126,7 +126,7 @@ public class PlayerAnimation : MonoBehaviour
                         break;
                 }
             }
-            else if (isJump && !PlayerController.isJump)
+            else if (bIsJump && !PlayerController.bIsJump)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
@@ -134,7 +134,7 @@ public class PlayerAnimation : MonoBehaviour
                     case GameManager.ePlayerAttackMethod.Physics:
                         // 物理攻撃時はすべての属性アニメーションをfalseに設定
                         Anime.SetBool("Jump_Normal", false);
-                        isJump = false;
+                        bIsJump = false;
 
                         break;
 
@@ -145,25 +145,25 @@ public class PlayerAnimation : MonoBehaviour
                             // 火 属性
                             case GameManager.ePlayerAttributeState.Fire:
                                 Anime.SetBool("Jump_Fire", false);
-                                isJump = false;
+                                bIsJump = false;
 
                                 break;
                             // 水 属性
                             case GameManager.ePlayerAttributeState.Water:
                                 Anime.SetBool("Jump_Water", false);
-                                isJump = false;
+                                bIsJump = false;
 
                                 break;
                             // 風 属性
                             case GameManager.ePlayerAttributeState.Wind:
                                 Anime.SetBool("Jump_Wind", false);
-                                isJump = false;
+                                bIsJump = false;
 
                                 break;
                             // 土 属性
                             case GameManager.ePlayerAttributeState.Earth:
                                 Anime.SetBool("Jump_Earth", false);
-                                isJump = false;
+                                bIsJump = false;
 
                                 break;
                             default:

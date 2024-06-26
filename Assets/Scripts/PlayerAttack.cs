@@ -15,8 +15,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField, Header("基本 攻撃力")] public static float fAttackLevel = 5.0f;
 
     //--- 検知用フラグ ---
-    public static bool isAttack = false;        // 攻撃検知用
-    
+    public static bool bIsAttack = false;        // 攻撃検知用
+
     //=== 初期化処理 ===
     void Start()
     {
@@ -33,10 +33,10 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         //=== 非ポーズ画面時 & 非ジャンプ時 処理 ===
-        //if (!PlayerController.isPaused && !PlayerAnimation.isJump)
-        if (!PlayerController.isPaused)
+        //if (!PlayerController.bIsPaused && !PlayerAnimation.bIsJump)
+        if (!PlayerController.bIsPaused)
         {
-            if (!PlayerAnimation.isJump)
+            if (!PlayerAnimation.bIsJump)
             {
                 //--- 攻撃方法変更 ---
                 ChangeAttack();
@@ -45,7 +45,7 @@ public class PlayerAttack : MonoBehaviour
                 //--- 属性変更 ---
                 if (gameManager.CurrentPlayerAttackMethod ==
                     GameManager.ePlayerAttackMethod.Magic)
-                { ChangeChangAttribute(); }
+                { ChangeAttribute(); }
             }
 
             //--- 攻撃処理 ---
@@ -85,7 +85,7 @@ public class PlayerAttack : MonoBehaviour
     }
 
     //--- 攻撃属性変更 ---
-    void ChangeChangAttribute()
+    void ChangeAttribute()
     {
         //--- 属性変更 ---
         if (playerInputSystem.Player.ChangAttribute.triggered)
@@ -130,12 +130,12 @@ public class PlayerAttack : MonoBehaviour
     //--- 攻撃処理 ---
     void Attack()
     {
-        if (!isAttack)
+        if (!bIsAttack)
         {
             //--- 攻撃処理 ---
             if (playerInputSystem.Player.Attack.triggered)
             {
-                isAttack = true;    // 攻撃 検知フラグON
+                bIsAttack = true;    // 攻撃 検知フラグON
 
                 //--- 攻撃フラグON & 攻撃アニメーションしていないとき ---
 
@@ -170,7 +170,11 @@ public class PlayerAttack : MonoBehaviour
     //--- 攻撃終了フラグ検知 ---
     public void AttackEnd()
     {
-        isAttack = false;
+        bIsAttack = false;
+    }
+
+    public void PhysicsAttackEnd()
+    {
     }
 
     //--- 物理攻撃 ---
