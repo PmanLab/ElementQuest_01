@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
         SetGameState(eGameState.Playing);                               // ゲーム状態
         SetPlayerState(ePlayerState.Normal);                            // プレイヤー 状態
         SetPlayerAttackMethodState(ePlayerAttackMethod.Physics);        // プレイヤー 攻撃 方法
-        SetPlayerAttackStageState(ePlayerAttackStageState.Beginner);    // プレイヤー 攻撃 段階
+        SetPlayerAttackStageState(ePlayerAttackStageState.Intermediate);    // プレイヤー 攻撃 段階
         SetPlayerAttributeState(ePlayerAttributeState.Fire);            // プレイヤー 攻撃 属性
     }
 
