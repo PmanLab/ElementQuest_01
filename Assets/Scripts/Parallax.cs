@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Parallax : MonoBehaviour
+{
+    //--- 情報格納用インスタンス ---
+    public GameObject cam;
+
+    //=== 変数宣言 ===
+    private float length, startpos;
+    public float parallaxEffect;
+
+    //=== 初期化処理 ===
+    void Start()
+    {
+        // 背景画像のx座標
+        startpos = transform.position.x;
+        // 背景画像のx軸方向の幅
+        length = GetComponent<SpriteRenderer>().bounds.size.x;
+    }
+
+    //=== 更新処理 ===
+    private void FixedUpdate()
+    {
+        // 無限スクロールに使用するパラメーター
+        float temp = (cam.transform.position.x * (1 - parallaxEffect));
+        // 背景の視差効果に使用するパラメーター
+        float dist = (cam.transform.position.x * parallaxEffect);
+        // 視差効果を与える処理
+        // 背景画像のx座標をdistの分移動させる
+        transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
+        // 無限スクロール
+        // 画面外になったら背景画像を移動させる
+        if (temp > startpos + length) startpos += length;
+        else if (temp < startpos - length) startpos -= length;
+    }
+}

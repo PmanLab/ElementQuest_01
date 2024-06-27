@@ -189,8 +189,11 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.enabled = !spriteRenderer.enabled;
             yield return new WaitForSeconds(fBlinkInterval);
         }
-        spriteRenderer.enabled = true; // 点滅終了後にスプライトを表示
-        gameManager.SetPlayerState(GameManager.ePlayerState.Normal); // プレイヤー状態を通常に戻す
+        // 点滅終了後にスプライトを表示
+        spriteRenderer.enabled = true;
+
+        // プレイヤー状態を通常に戻す
+        gameManager.SetPlayerState(GameManager.ePlayerState.Normal);
     }
 
     //=== 衝突判定 処理 ===

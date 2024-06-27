@@ -21,6 +21,7 @@ TagManager:
   - Earth_Advanced
   - Enemy
   - Wall
+  - BackGround
   layers:
   - Default
   - TransparentFX
@@ -57,6 +58,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 2431967357
     locked: 0
   - name: Stage
     uniqueID: 1758876677
