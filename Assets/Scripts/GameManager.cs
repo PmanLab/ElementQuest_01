@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //--- 格納用インスタンス ---
+    private PanelManager panelManager;
+
     //=== 列挙型定義 ===
     //--- ゲームの状態を管理する---
     public enum eGameState
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }
@@ -86,6 +89,11 @@ public class GameManager : MonoBehaviour
     {
         //--- ゲーム開始時の初期設定 ---
         Application.targetFrameRate = 60;
+
+        //--- インスタンス情報取得 ---
+        panelManager = GetComponent<PanelManager>();
+
+        //--- 全初期化関数 ---
         InitializeGame();
     }
 
@@ -97,13 +105,21 @@ public class GameManager : MonoBehaviour
         {
             case eGameState.Playing:
                 Time.timeScale = 1f;
+                PlayerController.bIsPaused = false;
+                panelManager.ClosePausePanel();
+
                 break;
             case eGameState.Paused:
+                panelManager.OpenPausePanel();
                 Time.timeScale = 0f;
+
                 break;
             case eGameState.GameOver:
                 Time.timeScale = 0f;
                 // Game Over時の追加処理をここに追加
+                panelManager.OpenGameOverPanel();
+                
+
                 break;
         }
     }
@@ -145,6 +161,7 @@ public class GameManager : MonoBehaviour
         SetPlayerAttackMethodState(ePlayerAttackMethod.Physics);        // プレイヤー 攻撃 方法
         SetPlayerAttackStageState(ePlayerAttackStageState.Intermediate);    // プレイヤー 攻撃 段階
         SetPlayerAttributeState(ePlayerAttributeState.Fire);            // プレイヤー 攻撃 属性
+
     }
 
     //=== ゲームをリセットするメソッド ===
@@ -169,12 +186,6 @@ public class GameManager : MonoBehaviour
         {
             SetGameState(eGameState.GameOver);
         }
-    }
-
-    //=== シーンをロードするメソッド ===
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
     }
 
     //=== 現在のシーンをリロードするメソッド ===
