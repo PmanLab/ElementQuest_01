@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
@@ -28,7 +29,9 @@ public class ButtonManager : MonoBehaviour
     //=== ゲームを終了するメソッド ===
     public void EndButton()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#endif
     }
 
     public void PlayMode()

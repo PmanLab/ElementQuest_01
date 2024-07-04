@@ -117,6 +117,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //=== Õ“Ë”»’è ˆ— ===
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // ’n–Ê‚ÉG‚ê‚Ä‚¢‚é
+        if (collision.gameObject.CompareTag("Ground") ||
+            collision.gameObject.CompareTag("Scaffold") ||
+            collision.gameObject.GetComponent<TilemapCollider2D>() != null)
+        {
+            bIsJump = false;
+            bIsGround = true;
+        }
+
+        // “G‚ÆG‚ê‚Ä‚¢‚é
+        if (!PlayerAttack.bIsAttack &&
+            gameManager.CurrentPlayerState ==
+            GameManager.ePlayerState.Normal &&
+            collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemyContact(collision);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeadArea"))
+        {
+            gameManager.SetGameState(GameManager.eGameState.GameOver);
+        }
+    }
+
     //=== ©ìƒƒ\ƒbƒh ===
     //--- ¶ˆÚ“® ˆ— ---
     void MoveLeft(float speed)
@@ -196,25 +226,5 @@ public class PlayerController : MonoBehaviour
         gameManager.SetPlayerState(GameManager.ePlayerState.Normal);
     }
 
-    //=== Õ“Ë”»’è ˆ— ===
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // ’n–Ê‚ÉG‚ê‚Ä‚¢‚é
-        if (collision.gameObject.CompareTag("Ground") ||
-            collision.gameObject.CompareTag("Scaffold") ||
-            collision.gameObject.GetComponent<TilemapCollider2D>() != null)
-        {
-            bIsJump = false;
-            bIsGround = true;
-        }
 
-        // “G‚ÆG‚ê‚Ä‚¢‚é
-        if (!PlayerAttack.bIsAttack &&
-            gameManager.CurrentPlayerState == 
-            GameManager.ePlayerState.Normal &&
-            collision.gameObject.CompareTag("Enemy"))
-        {
-            EnemyContact(collision);
-        }
-    }
 }
