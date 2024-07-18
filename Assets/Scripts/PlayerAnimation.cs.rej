@@ -1,0 +1,9 @@
+diff a/Assets/Scripts/PlayerAnimation.cs b/Assets/Scripts/PlayerAnimation.cs	(rejected hunks)
+@@ -269,7 +269,6 @@
+                         break;
+                 }
+             }
+-            Debug.Log("PlayerAnimation�FAnimetor��񂪂���܂���");
+     }
+ 
+     //=== ���상�\�b�h ===

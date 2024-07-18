@@ -11,6 +11,7 @@ public class PlayerAnimation : MonoBehaviour
 
     //--- 検知用フラグ ---
     public static bool bIsJump = false;              // ジャンプアニメーション中か判定するフラグ
+    public static bool bIsWalk = false;              // 歩きアニメーション中か判断するフラグ
 
     //=== 初期化 処理 ===
     void Start()
@@ -76,10 +77,105 @@ public class PlayerAnimation : MonoBehaviour
                     }
                     break;
             }
+            //=== 歩きアニメーション ===
+            if (!bIsJump && !bIsWalk && PlayerController.bIsWalk)
+            {
+                switch (gameManager.CurrentPlayerAttackMethod)
+                {
+                    //--- 物理 攻撃状態 ---
+                    case GameManager.ePlayerAttackMethod.Physics:
+                        // 物理攻撃時はすべての属性アニメーションをfalseに設定
+                        Anime.SetBool("Walk_Normal", true);
+                        bIsWalk = true;
 
+                        break;
 
-            //=== ジャンプアニメーション ===
-            if (!bIsJump && PlayerController.bIsJump)
+                    //--- 魔法 攻撃状態 ---
+                    case GameManager.ePlayerAttackMethod.Magic:
+                        switch (gameManager.CurrentPlayerAttributeState)
+                        {
+                            // 火 属性
+                            case GameManager.ePlayerAttributeState.Fire:
+                                Anime.SetBool("Walk_Fire", true);
+                                bIsWalk = true;
+
+                                break;
+                            // 水 属性
+                            case GameManager.ePlayerAttributeState.Water:
+                                Anime.SetBool("Walk_Water", true);
+                                bIsWalk = true;
+
+                                break;
+                            // 風 属性
+                            case GameManager.ePlayerAttributeState.Wind:
+                                Anime.SetBool("Walk_Wind", true);
+                                bIsWalk = true;
+
+                                break;
+                            // 土 属性
+                            case GameManager.ePlayerAttributeState.Earth:
+                                Anime.SetBool("Walk_Earth", true);
+                                bIsWalk = true;
+
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+                }
+            }
+            else if (bIsWalk && !PlayerController.bIsWalk)
+            {
+                switch (gameManager.CurrentPlayerAttackMethod)
+                {
+                    //--- 物理 攻撃状態 ---
+                    case GameManager.ePlayerAttackMethod.Physics:
+                        // 物理攻撃時はすべての属性アニメーションをfalseに設定
+                        Anime.SetBool("Walk_Normal", false);
+                        bIsWalk = false;
+
+                        break;
+
+                    //--- 魔法 攻撃状態 ---
+                    case GameManager.ePlayerAttackMethod.Magic:
+                        switch (gameManager.CurrentPlayerAttributeState)
+                        {
+                            // 火 属性
+                            case GameManager.ePlayerAttributeState.Fire:
+                                Anime.SetBool("Walk_Fire", false);
+                                bIsWalk = false;
+
+                                break;
+                            // 水 属性
+                            case GameManager.ePlayerAttributeState.Water:
+                                Anime.SetBool("Walk_Water", false);
+                                bIsWalk = false;
+
+                                break;
+                            // 風 属性
+                            case GameManager.ePlayerAttributeState.Wind:
+                                Anime.SetBool("Walk_Wind", false);
+                                bIsWalk = false;
+
+                                break;
+                            // 土 属性
+                            case GameManager.ePlayerAttributeState.Earth:
+                                Anime.SetBool("Walk_Earth", false);
+                                bIsWalk = false;
+
+                                break;
+                            default:
+                                break;
+                        }
+
+                        break;
+                }
+            }
+        }
+
+        //=== ジャンプアニメーション ===
+        if (!bIsJump && PlayerController.bIsJump)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
@@ -173,11 +269,7 @@ public class PlayerAnimation : MonoBehaviour
                         break;
                 }
             }
-        }
-        else
-        {
-            Debug.Log("PlayerAnimation：Animetor情報がありません");
-        }
+
     }
 
     //=== 自作メソッド ===
