@@ -10,8 +10,9 @@ public class PlayerAnimation : MonoBehaviour
     private GameManager gameManager;
 
     //--- 検知用フラグ ---
-    public static bool bIsJump = false;              // ジャンプアニメーション中か判定するフラグ
-    public static bool bIsWalk = false;              // 歩きアニメーション中か判断するフラグ
+    public static bool bIsJump = false;             // ジャンプアニメーション中か判定するフラグ
+    public static bool bIsWalk = false;             // 歩きアニメーション中か判断するフラグ
+    public static bool bIsRun = false;              // 走りアニメーション中か判断するフラグ
 
     //=== 初期化 処理 ===
     void Start()
@@ -78,7 +79,8 @@ public class PlayerAnimation : MonoBehaviour
                     break;
             }
             //=== 歩きアニメーション ===
-            if (!bIsJump && !bIsWalk && PlayerController.bIsWalk)
+            if (!bIsJump && !bIsWalk && PlayerController.bIsWalk ||
+                !bIsJump && !bIsRun && PlayerController.bIsRun)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
@@ -129,7 +131,8 @@ public class PlayerAnimation : MonoBehaviour
                         break;
                 }
             }
-            else if (bIsWalk && !PlayerController.bIsWalk)
+            else if (bIsWalk && !PlayerController.bIsWalk ||
+                     bIsRun && !PlayerController.bIsRun)
             {
                 switch (gameManager.CurrentPlayerAttackMethod)
                 {
