@@ -32,11 +32,12 @@ public class PlayerAttack : MonoBehaviour
     //=== 更新処理 ===
     void Update()
     {
-        //=== 非ポーズ画面時 & 非ジャンプ時 処理 ===
+        //=== 非ポーズ画面時 ===
         //if (!PlayerController.bIsPaused && !PlayerAnimation.bIsJump)
         if (!PlayerController.bIsPaused)
         {
-            if (!PlayerAnimation.bIsJump)
+            //--- 非ジャンプ時 & 非歩き時 処理 ---
+            if (!PlayerAnimation.bIsJump && !PlayerAnimation.bIsWalk)
             {
                 //--- 攻撃方法変更 ---
                 ChangeAttack();
@@ -48,9 +49,12 @@ public class PlayerAttack : MonoBehaviour
                 { ChangeAttribute(); }
             }
 
-            //--- 攻撃処理 ---
-            Attack();
-
+            //--- 非歩き時 ---
+            if (!PlayerController.bIsWalk)
+            {
+                //--- 攻撃処理 ---
+                Attack();
+            }
         }
     }
 
