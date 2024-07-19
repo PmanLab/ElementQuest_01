@@ -43,6 +43,7 @@ public class EnemyMove : MonoBehaviour
         else
         {
             bIsMove = false;
+            
         }
 
         // 敵が動く場合の処理
@@ -60,8 +61,11 @@ public class EnemyMove : MonoBehaviour
                 default:
                     break;
             }
-
-
+        }
+        // 敵が動かなる場合の処理
+        else
+        {
+            StopEnemy();
         }
 
     }
@@ -78,6 +82,13 @@ public class EnemyMove : MonoBehaviour
         // プレイヤーの位置に向かって移動
         Vector2 direction = (playerObj.transform.position - transform.position).normalized;
         rb.velocity = new Vector2(direction.x * fSpeed, rb.velocity.y);
+    }
+
+    void StopEnemy()
+    {
+        // 敵の移動を停止
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f; // 角速度もリセット
     }
 
     void Jump()

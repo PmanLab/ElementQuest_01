@@ -63,7 +63,13 @@ TagManager:
   - name: BackGround
     uniqueID: 2431967357
     locked: 0
-  - name: Stage
+  - name: Stage_BG_main
+    uniqueID: 828294319
+    locked: 0
+  - name: Stage_BG_Sub
+    uniqueID: 72157333
+    locked: 0
+  - name: Stage_main
     uniqueID: 1758876677
     locked: 0
   - name: Enemy
