@@ -31,6 +31,8 @@ public class ButtonManager : MonoBehaviour
     {
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
+#else
+        Application.Quit();//ゲームプレイ終了
 #endif
     }
 
