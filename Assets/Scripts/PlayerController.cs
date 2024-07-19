@@ -70,8 +70,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("ポーズ画面を閉じました、ゲームに戻ります。");
         }
 
-        //=== 非ポーズ画面時 処理 ===
-        if (!bIsPaused)
+        //=== 非ポーズ画面時 & 非攻撃時 処理 ===
+        if (!bIsPaused && !PlayerAttack.bIsAttack)
         {
             //--- 左右 移動(走り移動) ---
             if (inputAxis.x < 0 && playerInputSystem.Player.Run.IsPressed())
