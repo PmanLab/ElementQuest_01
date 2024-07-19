@@ -96,24 +96,28 @@ public class PlayerAnimation : MonoBehaviour
                         {
                             // ‰Î ‘®«
                             case GameManager.ePlayerAttributeState.Fire:
+                                Anime.SetBool("Walk_Earth", false);
                                 Anime.SetBool("Walk_Fire", true);
                                 bIsWalk = true;
 
                                 break;
                             // … ‘®«
                             case GameManager.ePlayerAttributeState.Water:
+                                Anime.SetBool("Walk_Fire", false);
                                 Anime.SetBool("Walk_Water", true);
                                 bIsWalk = true;
 
                                 break;
                             // •— ‘®«
                             case GameManager.ePlayerAttributeState.Wind:
+                                Anime.SetBool("Walk_Water", false);
                                 Anime.SetBool("Walk_Wind", true);
                                 bIsWalk = true;
 
                                 break;
                             // “y ‘®«
                             case GameManager.ePlayerAttributeState.Earth:
+                                Anime.SetBool("Walk_Wind", false);
                                 Anime.SetBool("Walk_Earth", true);
                                 bIsWalk = true;
 
