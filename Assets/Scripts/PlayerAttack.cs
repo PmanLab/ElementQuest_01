@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    //--- 格納用インスタンス ----
+    //--- 格納用インスタンス ---
     private PlayerInputSystem playerInputSystem;
     private GameManager gameManager;
     private PlayerMagicAttack playerMagicAttack;
